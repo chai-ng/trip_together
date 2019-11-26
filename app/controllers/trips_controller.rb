@@ -1,12 +1,12 @@
 class TripsController < ApplicationController
     def index
-    # Create new resource in the database
-    # GET /resource/new
+    # List all resources in the database
+    # GET /resource
     end
 
     def new
     # Create new resource in the database
-    # POST /resource/new
+    # GET /resource/new
     end
 
     def create
