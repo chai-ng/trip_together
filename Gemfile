@@ -30,6 +30,7 @@ gem 'jbuilder', '~> 2.7'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem "omniauth-rails_csrf_protection"
+gem 'google-api-client'
 
 
 # Use Active Storage variant
