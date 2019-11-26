@@ -41,28 +41,7 @@ class PlacesController < ApplicationController
 
     # https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=Museum%20of%20Contemporary%20Art%20Australia&inputtype=textquery&fields=type,photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyCFg67CkYdQfBML3P965eOV46EFMuCijj4
 
-    <script>
-    var btn = document.querySelector('button')
 
-    btn.addEventListener('click', (event) => {
-        event.preventDefault()
-    var place = input.value
-    var options = {
-        url: https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${place}&inputtype=textquery&fields=type,photos,formatted_address,name,rating,opening_hours,geometry&key=ENV[“GOOGLE_API_KEY”]}
-
-    $.ajax(options).done(response => {
-        response.candidates.forEach(place => {
-            # place.name
-            # place.formatted_address
-            # place.rating
-            # place.types(this is an array)
-        })
-    })
-    
-
-    })
-
-    </script>
 
 
     end
