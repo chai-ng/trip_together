@@ -7,6 +7,7 @@ class SessionsController < ApplicationController
       user_info = request.env["omniauth.auth"]
 
       # if user exists, then return user from PSQL
+      # if Users.user_info["uid"]
       
       # If user does not exist in Users table, then create new user
       user           = User.new
