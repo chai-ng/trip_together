@@ -8,9 +8,15 @@ Rails.application.routes.draw do
 
   # homepage
   root 'welcome#index'
+<<<<<<< HEAD
   
   # sessions
   get "/login", to: redirect("/auth/google_oauth2")
+=======
+  post "/login", to: redirect("/auth/google_oauth2")
+  post "/logout", to: "sessions#destroy"
+
+>>>>>>> implemented csrf protection
   get "/auth/google_oauth2/callback", to: "sessions#create"
   get "/logout", to: "sessions#destroy"
 
