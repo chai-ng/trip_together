@@ -2,6 +2,14 @@ class PlacesController < ApplicationController
     def index
     # List all resources in the database
     # GET /resource
+
+        # def voting
+        #     if votes type == true
+        #         delete vote
+        #     else
+        #         allow user to vote
+        #     end
+        # end
     end
 
     def new

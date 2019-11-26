@@ -1,1 +1,47 @@
-<h1>Places placeholder</h1>
+<h2>Places</h2>
+
+<p>Vote for the places you're interested in visiting</p>
+
+<br>
+
+
+<div class="vote-line">
+  <div class="vote circle">
+    <div class="increment up"></div>
+    <div class="increment down"></div>
+    <div class="count">0</div>
+  </div>
+
+  <div>
+    <h3>Botanic Gardens</h3>
+  </div>
+
+</div>
+
+
+
+
+<script>
+
+$(function(){
+  $(".increment").click(function(){
+    var count = parseInt($("~ .count", this).text());
+    
+    if($(this).hasClass("up")) {
+      var count = count + 1;
+      
+       $("~ .count", this).text(count);
+    } else {
+      var count = count - 1;
+       $("~ .count", this).text(count);     
+    }
+    
+    $(this).parent().addClass("bump");
+    
+    setTimeout(function(){
+      $(this).parent().removeClass("bump");    
+    }, 400);
+  });
+});
+
+</script>
