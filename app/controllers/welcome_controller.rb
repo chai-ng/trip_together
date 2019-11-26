@@ -3,7 +3,7 @@ class WelcomeController < ApplicationController
         uri = URI("https://www.googleapis.com/calendar/v3/users/me/calendarList?access_token=#{ENV["GCAL_ACCESS_TOKEN"]}")
         @calendars = Net::HTTP.get(uri) 
         @calendars = JSON.parse(@calendars)
-        # byebug
+
         render :index
     end
 end
