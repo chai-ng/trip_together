@@ -23,9 +23,12 @@ gem 'jbuilder', '~> 2.7'
 gem 'bcrypt', '~> 3.1.7'
 # # Use bootstrap theme
 # gem 'bootstrap', '~> 4.3.1'
-
 # # Use jQuery
 # gem 'jquery-rails'
+
+# Use of OAuth
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
