@@ -24,8 +24,7 @@
 <body>
 
 <h1>Hello World</h1>
-  <p class="navbar-text navbar-right">
-    <%# [START user_profile] %>
+
     <% if logged_in? %>
       <% if current_user.image_url %>
       <%= image_tag current_user.image_url, class: "img-circle", width: 24 %>
@@ -33,21 +32,13 @@
       <span>
         <%= current_user.first_name %> &nbsp;
         <%# [START logout] %>
-        <%= link_to "(logout)", logout_path %>
+        <%= link_to "Logout", logout_path %>
         <%# [END logout] %>
       </span>
     <% else %>
       <%= link_to "Login", login_path %>
     <% end %>
-  </p>
-  </div>
-  </div>
-  <div class="container">
-    <% if flash.any? %>
-    <% flash.each do |type, message| %>
-    <div class="alert alert-<%= type %>"><%= message %></div>
-    <% end %>
-    <% end %>
+
     <%= yield %>
 </body>
 
