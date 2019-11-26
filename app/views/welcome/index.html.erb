@@ -3,3 +3,7 @@
 <p>
     The time is now: <%= Time.now %>
 </p>
+
+<% @calendars["items"].each do |calendar| %>
+    <p><%= calendar["summary"] %></p>    
+<% end %>
