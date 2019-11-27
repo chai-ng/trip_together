@@ -24,7 +24,6 @@ class Api::PlacesController < ApplicationController
         place.longitude = @results["candidates"][0]["geometry"]["location"]["lat"]
         place.latitude = @results["candidates"][0]["geometry"]["location"]["lng"]
         place.save
-        
     end
 
     def show
