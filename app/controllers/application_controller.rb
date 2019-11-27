@@ -30,4 +30,8 @@ class ApplicationController < ActionController::Base
     def resize(url, width)
         url.sub(/s220/, sprintf('s%d', width))
     end
+
+    def current_trip_id
+        params[:id]
+    end
 end
