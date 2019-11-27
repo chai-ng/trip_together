@@ -4,9 +4,9 @@
 <h2>New Places</h2>
 
 <div class="md-form active-pink active-pink-2 mb-3 mt-0">
-  <form action="/search">
+  <form action="">
     <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="searchstring">
-    <button type="submit">Search</button>
+    <button type="submit" class="btn-search">Search</button>
   </form>
 </div>
 
@@ -36,29 +36,29 @@
 
 
 <script>
-  var btn = document.querySelector('button')
+  var btnSearch = document.querySelector('.btn-search')
   var ul = document.querySelector('ul')
   var input = document.querySelector('input')
 
-  btn.addEventListener('click', (event) => {
+  btnSearch.addEventListener('click', (event) => {
     event.preventDefault()
     searchstring = $('.form-control')[0].value
     // var place = input.value
 
-  $.ajax(`/api/places/search?searchstring=${searchstring}`).done(response => {
-  response.candidates.forEach(place => {
-    var h1 = document.createElement('h1')
-    h1.innerHTML = place.name
-    var h3 = document.createElement('h3')
-    h3.innerHTML = place.rating
-    document.body.appendChild(h1)
-    document.body.appendChild(h3)
-        // place.name
-        // place.formatted_address
-        // place.rating
-        // place.types(this is an array)
+    $.ajax(`/api/places/search?searchstring=${searchstring}`).done(response => {
+    response.candidates.forEach(place => {
+      var h1 = document.createElement('h1')
+      h1.innerHTML = place.name
+      var h3 = document.createElement('h3')
+      h3.innerHTML = place.rating
+      document.body.appendChild(h1)
+      document.body.appendChild(h3)
+          // place.name
+          // place.formatted_address
+          // place.rating
+          // place.types(this is an array)
+        })
       })
-    })
   })
 
 
