@@ -12,7 +12,6 @@ Rails.application.routes.draw do
   post "/logout", to: "sessions#destroy"
   get "/auth/google_oauth2/callback", to: "sessions#create"
   get "/logout", to: "sessions#destroy"
-<<<<<<< HEAD
   
   # Trips
   get "/trips/:id/places", to: "places#index"
@@ -31,7 +30,6 @@ Rails.application.routes.draw do
   get "/trips/:id/calendar", to: "trips#calendar"
   get "/trips/:id/travellers", to: "trips#travellers"
   
-=======
 
   get "/trips/:id/addpeople", to: "trips#addpeople"
 
@@ -41,7 +39,6 @@ Rails.application.routes.draw do
   get "/api/places/new", to:"api/places#new"
   get "/api/places/:id", to:"api/places#show"
 
->>>>>>> minor changes
   # Trips API
   get "/api/trips", to:"api/trips#index"
   get "/api/trips/create", to:"api/trips#create"
