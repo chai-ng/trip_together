@@ -31,7 +31,8 @@ gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem "omniauth-rails_csrf_protection"
 gem 'google-api-client'
-
+gem 'googleauth'
+gem 'redis'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'

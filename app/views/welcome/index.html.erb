@@ -10,6 +10,7 @@
     </div>
   </div>
 
+<<<<<<< HEAD
   
   <div class="row">
     <div class="col">
@@ -29,3 +30,11 @@
     </div>
   </div>
 </div>
+=======
+<p>
+    The time is now: <%= Time.now %>
+</p>
+<% if logged_in? %>
+    <%= current_user.get_calendar %>
+<% end %>
+>>>>>>> tried google auth
