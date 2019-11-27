@@ -1,8 +1,13 @@
 class Api::VotesController < ApplicationController
     def index
-    # List all resources in the database
-    # GET /resource
+        # return me all the votes associated with a trip_id
         render json: Vote.where(trip_id: params[:trip_id])
+    end
+
+    def sum_by_place
+        # sum by place_id and vote_type
+        result = Vote.group(:place_id).group(:vote_type).count
+        render json: result
     end
 
     def create
@@ -14,25 +19,19 @@ class Api::VotesController < ApplicationController
         vote.save
     end
 
-    def show
-    # Show specific trip from /trips/:id
-    # GET /resource/:id
-        render json: Vote.find_by(id: params[:id])
-    end
-
-    def edit
-    # Show HTML form to edit a specific resource
-    # GET /resource/:id/edit
-    end
-
     def update
-    # Update a specific resource in the database
-    # GET /resource/:id
+        # change vote from up to down
+        vote = Vote.find_by(id: params[:id])
+        if vote.vote_type == 'upvote'
+            vote.vote_type = 'downvote'
+        else
+            vote.vote_type = 'upvote'
+        end
+        vote.save
     end
 
     def delete
-    # Destory a specific resource in the database from /trips/:id
-    # DELETE /resource/:id
+        # delete the vote
         Vote.delete_by(id: params[:id])
     end
 end
