@@ -13,11 +13,13 @@ Rails.application.routes.draw do
   get "/auth/google_oauth2/callback", to: "sessions#create"
   get "/logout", to: "sessions#destroy"
 
+  get "/trips/:id/addpeople", to: "trips#addpeople"
+
   # Places API
   get "/api/places", to:"api/places#index"
   get "/api/places/search", to:"api/places#search"
   get "/api/places/new", to:"api/places#new"
-  get "/api/places/:id", to "api/places#show"
+  get "/api/places/:id", to: "api/places#show"
 
   # Trips API
   get "/api/trips", to:"api/trips#index"
@@ -30,7 +32,7 @@ Rails.application.routes.draw do
 
   # Votes API
   get "/api/votes", to:"api/votes#index"
-  post "/api/votes/create", to:"api/votes#create"
+  get "/api/votes/create", to:"api/votes#create"
   get "/api/votes/:id", to: "api/votes#show"
   get "/api/votes/:id/update", to:"api/votes#update"
   delete "/api/votes/:id", to: "api/votes#delete"  

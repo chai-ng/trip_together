@@ -1,4 +1,4 @@
-class Api::TripsController < ApplicationController
+class Api::VotesController < ApplicationController
     def index
     # List all resources in the database
     # GET /resource
@@ -9,7 +9,7 @@ class Api::TripsController < ApplicationController
         vote = Vote.new
         vote.place_id = params[:place_id]
         vote.trip_id = params[:trip_id]
-        vote.type = params[:type]
+        vote.vote_type = params[:vote_type]
         vote.user_id = current_user.id
         vote.save
     end
