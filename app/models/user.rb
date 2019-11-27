@@ -1,6 +1,4 @@
 class User < ApplicationRecord
-<<<<<<< HEAD
-=======
     require 'google/apis/calendar_v3'
     require 'googleauth'
     require 'googleauth/stores/redis_token_store'
@@ -33,5 +31,4 @@ class User < ApplicationRecord
                                         time_min: Time.now.iso8601)
         return @result
     end
->>>>>>> tried google auth
 end
