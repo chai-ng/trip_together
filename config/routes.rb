@@ -35,8 +35,6 @@ Rails.application.routes.draw do
   # Travellers API
   get "/api/travellers", to:"api/travellers#index"
   get "/api/travellers/create", to:"api/travellers#create"
-  get "/api/travellers/:id", to: "api/travellers#show"
-  get "/api/travellers/:id/update", to:"api/travellers#update"
   delete "/api/travellers/:id", to: "api/travellers#delete"
 
   # Votes API
