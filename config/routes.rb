@@ -18,4 +18,12 @@ Rails.application.routes.draw do
   get "/api/places", to:"api/places#index"
   get "/api/places/search", to:"api/places#search"
   get "/api/places/new", to:"api/places#new"
+
+  # Trips API
+  get "/api/trips", to:"api/trips#index"
+  post "/api/trips/new", to:"api/trips#new"
+  patch "/api/trips/:id/edit", to:"api/trips#update"
+  delete "/api/trips/:id/delete", to: "api/trips#delete"
+
+  # Travellers API
 end
