@@ -40,6 +40,7 @@ class TripsController < ApplicationController
     end
 
     def calendar
+        @calendar_link = 
         render :trip_calendar
     end
 end
