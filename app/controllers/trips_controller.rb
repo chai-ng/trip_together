@@ -14,8 +14,6 @@ class TripsController < ApplicationController
     # POST /resource
     end
 
-    end
-
     def show
     # Show specific trip from /trips/:id
     # GET /resource/:id
