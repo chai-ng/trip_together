@@ -7,7 +7,6 @@ class Api::TripsController < ApplicationController
 
     def create
         trip = Trip.new
-        byebug
         trip.name = params[:trip_name]
         trip.location = params[:location]
         trip.start_date = DateTime.parse(params[:start_date])

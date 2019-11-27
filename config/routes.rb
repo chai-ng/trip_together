@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   get "/api/places", to:"api/places#index"
   get "/api/places/search", to:"api/places#search"
   get "/api/places/new", to:"api/places#new"
-  get "/api/places/:id", to "api/places#show"
+  get "/api/places/:id", to:"api/places#show"
 
   # Trips API
   get "/api/trips", to:"api/trips#index"
