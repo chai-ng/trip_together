@@ -21,9 +21,18 @@ Rails.application.routes.draw do
 
   # Trips API
   get "/api/trips", to:"api/trips#index"
-  post "/api/trips/new", to:"api/trips#new"
-  patch "/api/trips/:id/edit", to:"api/trips#update"
-  delete "/api/trips/:id/delete", to: "api/trips#delete"
+  get "/api/trips/:id", to: "api/trips#show"
+  post "/api/trips/create", to:"api/trips#create"
+  get "/api/trips/:id/update", to:"api/trips#update"
+  delete "/api/trips/:id", to: "api/trips#delete"
 
   # Travellers API
+
+  # Votes API
+  get "/api/votes", to:"api/votes#index"
+  get "/api/votes/:id", to: "api/votes#show"
+  post "/api/votes/create", to:"api/votes#create"
+  get "/api/votes/:id/update", to:"api/votes#update"
+  delete "/api/votes/:id", to: "api/votes#delete"  
+
 end
