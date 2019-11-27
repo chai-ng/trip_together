@@ -35,6 +35,8 @@ class PlacesController < ApplicationController
     # Create new resource in the database
     # GET /resource/new
 
+    @place = Place.find(1)
+
     # get search input
     # get auto complete based on trip.name (so it will search in that region)
     # when button is clicked place is added to the map and added to the Place table (create new, save)i
