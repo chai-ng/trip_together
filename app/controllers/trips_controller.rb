@@ -12,6 +12,11 @@ class TripsController < ApplicationController
     def create
     # Creating a new resource in the database
     # POST /resource
+        
+        # trip = Trip.new
+        # trip.name = params[:trip-name]
+        # trip.start_date = params[:start-date]
+        # trip.end_date = params[:]
     end
 
     def show
