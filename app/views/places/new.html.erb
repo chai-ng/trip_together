@@ -33,7 +33,7 @@
     searchstring = $('.form-control')[0].value
     // var place = input.value
 
-  $.ajax(`/search?searchstring=${searchstring}`).done(response => {
+  $.ajax(`/api/places/search?searchstring=${searchstring}`).done(response => {
   response.candidates.forEach(place => {
     var h1 = document.createElement('h1')
     h1.innerHTML = place.name
