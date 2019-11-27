@@ -1,7 +1,10 @@
 <h2>New Places</h2>
 
 <div class="md-form active-pink active-pink-2 mb-3 mt-0">
-  <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+  <form action="/search">
+    <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="searchstring">
+    <button type="submit">Search</button>
+  </form>
 </div>
 
 <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">
@@ -26,21 +29,22 @@
   var input = document.querySelector('input')
 
   btn.addEventListener('click', (event) => {
-      event.preventDefault()
-  var place = input.value
+    event.preventDefault()
+    searchstring = $('.form-control')[0].value
+    // var place = input.value
 
-  var options = {
-      url: `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${place}&inputtype=textquery&fields=type,photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyCFg67CkYdQfBML3P965eOV46EFMuCijj4`
-
-  $.ajax(options).done(response => {
+  $.ajax(`/search?searchstring=${searchstring}`).done(response => {
   response.candidates.forEach(place => {
-    var li = document.createElement('li')
-    var li = place
+    var h1 = document.createElement('h1')
+    h1.innerHTML = place.name
+    var h3 = document.createElement('h3')
+    h3.innerHTML = place.rating
+    document.body.appendChild(h1)
+    document.body.appendChild(h3)
         // place.name
         // place.formatted_address
         // place.rating
         // place.types(this is an array)
-        ul.appendChild(li)
       })
     })
   })
