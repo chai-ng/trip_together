@@ -40,7 +40,30 @@ class TripsController < ApplicationController
     end
 
     def calendar
-        @random = "hello world"
+        # check auth token is still valid
+        if current_user.expire_by.localtime < Time.now
+            redirect_to "/logout"
+        end
+
+        # get events based on trip calendar
+        calendar_id = Trip.where(id: params[:id])[0].calendar_id
+        uri = URI("https://www.googleapis.com/calendar/v3/calendars/#{calendar_id}/events?access_token=#{current_user.access_token}")
+        @events = Net::HTTP.get(uri)
+
+        # check that event calendar exists
+        if @events == "Not Found"
+        else 
+            @events = JSON.parse(@events)
+        end
+        
+        # Filter out all day events
+        @accommodations = @events["items"].filter {|event| event["start"]["date"].class != NilClass}
+        @accommodations = @accommodations.filter {|event| DateTime.parse(event["start"]["date"]) > Time.now} 
+        
+        # Filter and return only events happening past today
+        @events = @events["items"].filter {|event| event["start"]["dateTime"].class != NilClass} 
+        @events = @events.filter {|event| DateTime.parse(event["start"]["dateTime"]) > Time.now} 
+
         render :trip_calendar
     end
 end
