@@ -11,13 +11,23 @@
                 </tr>
             </thead>
             <tbody>
-                <% @result.items.each do |event| %>
-                <tr>
-                    <th scope="row"><%= event.start.date_time || event.start.date %></th>
-                    <td><%=event.summary%></td>
-                </tr>
-                <% end %>
+                <%# <% @result.items.each do |event| %>
+                <%# <tr> %>
+                    <%# <th scope="row"><%= event.start.date_time || event.start.date </th> %>
+                    <%# <td><%=event.summary</td> %>
+                <%# </tr> %>
+                <%# <% end %>
             </tbody>
         </table>
     </div>
 </div>
+
+<script>
+    $.ajax(`/api/calendar/<%= params[:id] %>`).done( response => {
+        response.items.forEach(event => {
+            var h1 = document.createElement('h1')
+            h1.innerHTML = event.summary
+            $('.section.mt-3')[0].appendChild(h1)
+        })
+    })
+</script>

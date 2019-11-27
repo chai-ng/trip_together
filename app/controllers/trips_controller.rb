@@ -40,14 +40,6 @@ class TripsController < ApplicationController
     end
 
     def calendar
-        calendar = Google::Apis::CalendarV3::CalendarService.new
-        calendar.authorization = credentials_for(Google::Apis::CalendarV3::AUTH_CALENDAR)
-        calendar_id = Trip.find_by(id: params[:id]).calendar_id
-        @result = calendar.list_events(calendar_id,
-                                        max_results: 10,
-                                        single_events: true,
-                                        order_by: 'startTime',
-                                        time_min: Time.now.iso8601)
         render :trip_calendar
     end
 end

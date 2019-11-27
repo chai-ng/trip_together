@@ -41,16 +41,21 @@ Rails.application.routes.draw do
 
   # Votes API
   get "/api/votes", to:"api/votes#index"
-  get "/api/votes/create", to:"api/votes#create"
   get "/api/votes/:id", to: "api/votes#show"
-  get "/api/votes/:id/update", to:"api/votes#update"
   delete "/api/votes/:id", to: "api/votes#delete"  
+  get "/api/votes/:id/create", to:"api/votes#create"
+  get "/api/votes/:id/update", to:"api/votes#update"
 
   # Calendar API
-  get "/api/calendar", to:"api/calendar#index"
   get "/api/calendar/create", to:"api/calendar#create"
-  get "/api/calendar/:id", to: "api/calendar#show"
-  get "/api/calendar/:id/update", to:"api/calendar#update"
-  delete "/api/calendar/:id", to: "api/calendar#delete"  
+  get "/api/calendar/:trip_id", to: "api/calendar#show"
+  get "/api/calendar/:trip_id/update", to:"api/calendar#update"
+  delete "/api/calendar/:trip_id", to: "api/calendar#delete"
+
+  # Calendar API
+  get "/api/calendar/:trip_id/event/create", to:"api/calendar#create_event"
+  get "/api/calendar/:trip_id/event/:id", to: "api/calendar#view_event"
+  get "/api/calendar/:trip_id/event/:id/update", to:"api/calendar#update_event"
+  delete "/api/calendar/:trip_id/event/:id", to: "api/calendar#delete_event"
 
 end
