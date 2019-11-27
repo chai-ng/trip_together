@@ -16,7 +16,6 @@ Rails.application.routes.draw do
   # Trips
   get "/trips/:id/travellers", to: "trips#travellers"
   get "/trips/:id/calendar", to: "trips#calendar"
-  get "/trips/:id/authcalendar", to: "trips#authcalendar"
   get "/trips/:id/places", to: "places#index"
   get "trips/:id/places/new", to: "places#new"
   
