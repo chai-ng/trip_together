@@ -10,7 +10,6 @@ Rails.application.routes.draw do
   root 'welcome#index'
   post "/login", to: redirect("/auth/google_oauth2")
   post "/logout", to: "sessions#destroy"
-
   get "/auth/google_oauth2/callback", to: "sessions#create"
   get "/logout", to: "sessions#destroy"
 
