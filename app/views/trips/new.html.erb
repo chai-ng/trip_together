@@ -1,19 +1,26 @@
 <div class="container">
   <h1>Create New Trip</h1>
 
-  <form action="/trips" method="post">
+  <form action="/api/trips/create" method="post">
     <div class="form-group">
       <label for="">Trip Title</label>
-      <input  class="form-control" type="text" name='trip-name'>
+      <input  class="form-control" type="text" name='trip_name'>
     </div>
-    <label for="">Start Date</label>
-    <input type="date" name='start-date'>
-    <label for="">End Date</label>
-    <input type="date" name='end-date'>
-    <label for="">Location</label>
-    <input type="text" name='location'>
-    <label for="">Accomodation Address:</label>
-    <input type="text" name='accommodation-address'>
-    <button class="btn btn-primary">Submit</button>
+    <form>
+  <div class="row">
+    <div class="col">
+      <label for="">Start Date</label>
+      <input class="form-control" type="date" name='start_date'>
+    </div>  
+    <div class="col">
+      <label for="">End Date</label>
+      <input class="form-control" type="date" name='end_date'>
+      </div>
+    </div>
+    <div class="form-group">  
+      <label for="">Location</label>
+      <input class="form-control" type="text" name='location'>
+    </div>  
+    <button class="btn btn-secondary">Submit</button>
   </form>
 </div>
