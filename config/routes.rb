@@ -12,15 +12,18 @@ Rails.application.routes.draw do
   post "/logout", to: "sessions#destroy"
   get "/auth/google_oauth2/callback", to: "sessions#create"
   get "/logout", to: "sessions#destroy"
-
+  
+  # Trips
   get "/trips/:id/addpeople", to: "trips#addpeople"
-
+  get "/trips/:id/places", to: "places#index"
+  get "trips/:id/places/new", to: "places#new"
+  
   # Places API
   get "/api/places", to:"api/places#index"
   get "/api/places/search", to:"api/places#search"
   get "/api/places/new", to:"api/places#new"
   get "/api/places/:id", to: "api/places#show"
-
+  
   # Trips API
   get "/api/trips", to:"api/trips#index"
   get "/api/trips/create", to:"api/trips#create"
@@ -29,6 +32,11 @@ Rails.application.routes.draw do
   delete "/api/trips/:id", to: "api/trips#delete"
 
   # Travellers API
+  get "/api/travellers", to:"api/travellers#index"
+  get "/api/travellers/create", to:"api/travellers#create"
+  get "/api/travellers/:id", to: "api/travellers#show"
+  get "/api/travellers/:id/update", to:"api/travellers#update"
+  delete "/api/travellers/:id", to: "api/travellers#delete"
 
   # Votes API
   get "/api/votes", to:"api/votes#index"
@@ -36,5 +44,12 @@ Rails.application.routes.draw do
   get "/api/votes/:id", to: "api/votes#show"
   get "/api/votes/:id/update", to:"api/votes#update"
   delete "/api/votes/:id", to: "api/votes#delete"  
+
+  # Calendar API
+  get "/api/calendar", to:"api/calendar#index"
+  get "/api/calendar/create", to:"api/calendar#create"
+  get "/api/calendar/:id", to: "api/calendar#show"
+  get "/api/calendar/:id/update", to:"api/calendar#update"
+  delete "/api/calendar/:id", to: "api/calendar#delete"  
 
 end
