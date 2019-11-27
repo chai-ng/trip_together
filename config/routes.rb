@@ -18,11 +18,12 @@ Rails.application.routes.draw do
   get "/api/places", to:"api/places#index"
   get "/api/places/search", to:"api/places#search"
   get "/api/places/new", to:"api/places#new"
+  get "/api/places/:id", to "api/places#show"
 
   # Trips API
   get "/api/trips", to:"api/trips#index"
+  get "/api/trips/create", to:"api/trips#create"
   get "/api/trips/:id", to: "api/trips#show"
-  post "/api/trips/create", to:"api/trips#create"
   get "/api/trips/:id/update", to:"api/trips#update"
   delete "/api/trips/:id", to: "api/trips#delete"
 
@@ -30,8 +31,8 @@ Rails.application.routes.draw do
 
   # Votes API
   get "/api/votes", to:"api/votes#index"
-  get "/api/votes/:id", to: "api/votes#show"
   post "/api/votes/create", to:"api/votes#create"
+  get "/api/votes/:id", to: "api/votes#show"
   get "/api/votes/:id/update", to:"api/votes#update"
   delete "/api/votes/:id", to: "api/votes#delete"  
 
