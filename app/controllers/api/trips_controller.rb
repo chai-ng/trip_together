@@ -1,12 +1,7 @@
 class Api::TripsController < ApplicationController
     def index
-<<<<<<< HEAD
-        render json: Trip.where(user_id: current_user.id)
-=======
-    # get all trips_id where user_email matches
-    Traveller.where(user_email: current_user.email)
-    render json: Trip.where(user_id: current_user.id)
->>>>>>> changed trip API
+    # get all trips_id where the current user is a traveller in
+    render json: Trip.where(id: Traveller.where(user_email: current_user.email).select('trip_id'))
     end
 
     def create
