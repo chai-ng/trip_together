@@ -37,16 +37,30 @@
         <a class="nav-link" href="#">About</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Pricing</a>
+        <% if logged_in? %>
+          <% if current_user.image_url %>
+          <%= image_tag current_user.image_url, class: "img-circle", width: 24 %>
+          <% end %>
+          <span>
+            <%= current_user.first_name %> &nbsp;
+            <%# [START logout] %>
+            <%= button_to "Logout", logout_path %>
+            <%# [END logout] %>
+          </span>
+        <% else %>
+          <%= button_to "Login", "/auth/google_oauth2" %>
+        <% end %>
       </li>
-      <li class="nav-item dropdown">
+
+      <%# If we want a dropdown menu %>
+      <%# <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Dropdown link
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" href="#">Action</a>
           <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
+          <a class="dropdown-item" href="#">Something else here</a> %>
         </div>
       </li>
     </ul>
@@ -55,19 +69,7 @@
 
 
 
-    <% if logged_in? %>
-      <% if current_user.image_url %>
-      <%= image_tag current_user.image_url, class: "img-circle", width: 24 %>
-      <% end %>
-      <span>
-        <%= current_user.first_name %> &nbsp;
-        <%# [START logout] %>
-        <%= button_to "Logout", logout_path %>
-        <%# [END logout] %>
-      </span>
-    <% else %>
-      <%= button_to "Login", "/auth/google_oauth2" %>
-    <% end %>
+
 
 
 
