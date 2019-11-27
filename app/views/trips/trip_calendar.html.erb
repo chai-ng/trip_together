@@ -6,19 +6,15 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">Day</th>
+                    <th scope="col">Time</th>
                     <th scope="col">Event</th>
-                    <th scope="col">Start Time</th>
-                    <th scope="col">End Time</th>
                 </tr>
             </thead>
             <tbody>
-                <% @events.each do |event| %>
+                <% @result.items.each do |event| %>
                 <tr>
-                    <th scope="row"><%= DateTime.parse(event["start"]["dateTime"]).strftime('%d %b %Y') %></th>
-                    <td><%=event["summary"]%></td>
-                    <td><%=DateTime.parse(event["start"]["dateTime"]).strftime('%I:%M %p')%></td>
-                    <td><%=DateTime.parse(event["end"]["dateTime"]).strftime('%I:%M %p')%></td>
+                    <th scope="row"><%= event.start.date_time || event.start.date %></th>
+                    <td><%=event.summary%></td>
                 </tr>
                 <% end %>
             </tbody>

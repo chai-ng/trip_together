@@ -21,15 +21,11 @@ class SessionsController < ApplicationController
         user.last_name      = user_info["info"]["last_name"]
         user.image_url = user_info["info"]["image"]
         user.email = user_info["info"]["email"]
-        user.access_token = user_info["credentials"]["token"]
-        user.expire_by = Time.at(user_info["credentials"]["expires_at"]).to_datetime
         user.save
         
       # if user exists, then return user from PSQL
       else
         user = User.find_by(uid: user_info["uid"])
-        user.access_token = user_info["credentials"]["token"]
-        user.expire_by = Time.at(user_info["credentials"]["expires_at"]).to_datetime
         user.save
       end
   
