@@ -31,20 +31,13 @@ class PlacesController < ApplicationController
 
     end
 
-    def search
-        searchstring = params[:searchstring]
-        uri = URI("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=#{searchstring}&inputtype=textquery&fields=type,photos,formatted_address,name,rating,opening_hours,geometry&key=#{ENV["GOOGLE_API_KEY"]}")
-        @results = Net::HTTP.get(uri) 
-        render json: @results
-    end
-
     def new
     # Create new resource in the database
     # GET /resource/new
 
     # get search input
     # get auto complete based on trip.name (so it will search in that region)
-    # when button is clicked place is added to the map and added to the Place table (create new, save)
+    # when button is clicked place is added to the map and added to the Place table (create new, save)i
 
     end
 

@@ -14,5 +14,6 @@ Rails.application.routes.draw do
   get "/auth/google_oauth2/callback", to: "sessions#create"
   get "/logout", to: "sessions#destroy"
 
-  get "/api/places/search", {controller:"place"}, to:"places#search"
+  # Places API
+  get "/api/places/search", to:"api/places#search"
 end
