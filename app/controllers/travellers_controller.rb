@@ -33,9 +33,4 @@ class TravellersController < ApplicationController
     # Destory a specific resource in the database from /trips/:id
     # DELETE /resource/:id
     end
-
-    def addpeople
-        @travellers = Traveller.where(trip_id: params[:id])
-        render :addpeople
-    end
 end

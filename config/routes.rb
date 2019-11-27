@@ -14,7 +14,8 @@ Rails.application.routes.draw do
   get "/logout", to: "sessions#destroy"
   
   # Trips
-  get "/trips/:id/addpeople", to: "trips#addpeople"
+  get "/trips/:id/travellers", to: "trips#travellers"
+  get "/trips/:id/calendar", to: "trips#calendar"
   get "/trips/:id/places", to: "places#index"
   get "trips/:id/places/new", to: "places#new"
   
