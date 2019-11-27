@@ -1,0 +1,23 @@
+<div class="container mt-3">
+    <h1>Trip Calendar</h1>
+
+    <div class="section mt-3">
+        <h2>Events</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Time</th>
+                    <th scope="col">Event</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @result.items.each do |event| %>
+                <tr>
+                    <th scope="row"><%= event.start.date_time || event.start.date %></th>
+                    <td><%=event.summary%></td>
+                </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+</div>
