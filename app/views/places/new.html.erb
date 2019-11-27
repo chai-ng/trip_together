@@ -13,25 +13,38 @@
 </ul>
 
 
+<div id="map-container-google-1" class="z-depth-1-half map-container" style="height: 500px">
+  <iframe src="https://maps.google.com/maps?q=paris&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
+    style="border:0" allowfullscreen></iframe>
+</div>
+
+
+
 <script>
   var btn = document.querySelector('button')
+  var ul = document.querySelector('ul')
+  var input = document.querySelector('input')
 
   btn.addEventListener('click', (event) => {
       event.preventDefault()
   var place = input.value
 
   var options = {
-      url: https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${place}&inputtype=textquery&fields=type,photos,formatted_address,name,rating,opening_hours,geometry&key=ENV[“GOOGLE_API_KEY”]}
+      url: `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${place}&inputtype=textquery&fields=type,photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyCFg67CkYdQfBML3P965eOV46EFMuCijj4`
 
   $.ajax(options).done(response => {
   response.candidates.forEach(place => {
     var li = document.createElement('li')
-        # place.name
-        # place.formatted_address
-        # place.rating
-        # place.types(this is an array)
+    var li = place
+        // place.name
+        // place.formatted_address
+        // place.rating
+        // place.types(this is an array)
+        ul.appendChild(li)
       })
     })
   })
 
+
 </script>
+
