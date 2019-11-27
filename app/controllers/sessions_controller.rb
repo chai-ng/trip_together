@@ -11,7 +11,6 @@ class SessionsController < ApplicationController
     # GET /auth/google_oauth2/callback
     def create
       user_info = request.env["omniauth.auth"]
-      byebug
 
       # If user does not exist in Users table, then create new user
       if User.find_by(uid: user_info["uid"]) == nil
@@ -31,7 +30,7 @@ class SessionsController < ApplicationController
   
     #   session[:user] = Marshal.dump user
       session[:user] = user.id
-      redirect_to root_path
+      redirect_to "/trips"
     end
 
     def destroy
