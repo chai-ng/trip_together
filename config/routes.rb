@@ -42,7 +42,12 @@ Rails.application.routes.draw do
   get "/api/places/search", to:"api/places#search"
   get "/api/places/create", to:"api/places#create"
   get "/api/places/:id", to: "api/places#show"
+<<<<<<< HEAD
   delete "/api/places/:id", to: "api/places#delete"
+=======
+  patch "/api/places/:id/edit", to: "api/places#update"
+  delete "/api/places/:id/delete", to: "api/places#delete"
+>>>>>>> adding RESTful routes to places
 
   # Travellers API
   get "/api/travellers", to:"api/travellers#index"
