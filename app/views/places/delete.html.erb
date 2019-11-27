@@ -8,3 +8,11 @@
     <a class="btn btn-primary btn-lg" href="#" role="button">No</a>
   </p>
 </div>
+
+  <form class="btn btn-primary btn-lg" action="/delete_rating" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <input type="hidden" name="id" value="<%= places["id"]%>">
+    <button>yes</button>
+  </form>
+
+

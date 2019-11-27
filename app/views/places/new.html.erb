@@ -21,6 +21,15 @@
     style="border:0" allowfullscreen></iframe>
 </div>
 
+<p>
+    <div id="map"></div>
+</p>
+
+
+<p>
+  <%= image_tag "https://maps.googleapis.com/maps/api/staticmap?zoom=17&size=400x300&center=#{@place.latitude},#{@place.longitude}&key=#{ENV["GOOGLE_API_KEY"]}", alt: "Map" %>
+</p>
+
 
 
 <script>

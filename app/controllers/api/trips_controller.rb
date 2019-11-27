@@ -13,6 +13,16 @@ class Api::TripsController < ApplicationController
         trip.end_date = DateTime.parse(params[:end_date])
         trip.user_id = current_user.id
         trip.save
+
+        traveller = Traveller.new
+        traveller.trip_id = trip.id
+        traveller.user_email = current_user.email
+        traveller.existing_user = true
+        traveller.accepted_invite = true
+        traveller.save
+
+        redirect_to "/trips/#{trip.id}/addpeople"
+        # render json: trip.id
     end
 
     def show
