@@ -4,6 +4,7 @@ class PlacesController < ApplicationController
     # GET /resource
 
         @trip_name = Trip.name
+        @trip_header = "Are you rendering"
 
         # @places = Place.all 
 
