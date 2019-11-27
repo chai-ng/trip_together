@@ -16,13 +16,7 @@ Rails.application.routes.draw do
   # Trips
   get "/trips/:id/addpeople", to: "trips#addpeople"
   get "/trips/:id/places", to: "places#index"
-  get "trips/:id/places/new", to: "places#new"
-  
-  # Places API
-  get "/api/places", to:"api/places#index"
-  get "/api/places/search", to:"api/places#search"
-  get "/api/places/new", to:"api/places#new"
-  get "/api/places/:id", to: "api/places#show"
+  get "/trips/:id/places/new", to: "places#new"
   
   # Trips API
   get "/api/trips", to:"api/trips#index"
@@ -30,6 +24,13 @@ Rails.application.routes.draw do
   get "/api/trips/:id", to: "api/trips#show"
   get "/api/trips/:id/update", to:"api/trips#update"
   delete "/api/trips/:id", to: "api/trips#delete"
+  
+  # Places API
+  get "/api/places", to:"api/places#index"
+  get "/api/places/search", to:"api/places#search"
+  get "/api/places/new", to:"api/places#new"
+  get "/api/places/:id", to: "api/places#show"
+  delete "/api/places/:id" to: "api/places#delete"
 
   # Travellers API
   get "/api/travellers", to:"api/travellers#index"
@@ -39,17 +40,28 @@ Rails.application.routes.draw do
   delete "/api/travellers/:id", to: "api/travellers#delete"
 
   # Votes API
-  get "/api/votes", to:"api/votes#index"
-  get "/api/votes/create", to:"api/votes#create"
-  get "/api/votes/:id", to: "api/votes#show"
-  get "/api/votes/:id/update", to:"api/votes#update"
-  delete "/api/votes/:id", to: "api/votes#delete"  
-
+  get "/api/trips/:id/votes", to:"api/votes#index"
+  get "/api/trips/:id/votes/create", to:"api/votes#create"
+  get "/api/trips/:id/votes/:vote_id", to: "api/votes#show"
+  get "/api/trips/:id/votes/:vote_id/update", to:"api/votes#update"
+  delete "/api/trips/:id/votes/:vote_id", to: "api/votes#delete"  
+  
   # Calendar API
-  get "/api/calendar", to:"api/calendar#index"
-  get "/api/calendar/create", to:"api/calendar#create"
+  # Be able to create a Google calendar when trip is created
+  post "/api/calendar/create", to:"api/calendar#create"
+  # Be able to view events on the trip Google calendar
   get "/api/calendar/:id", to: "api/calendar#show"
+  # Be able to update calendar metadata
   get "/api/calendar/:id/update", to:"api/calendar#update"
+  # Be able to delete the calendar when trip is deleted
   delete "/api/calendar/:id", to: "api/calendar#delete"  
+
+  # Events API
+  # Be able to view event
+  get "/api/calendar/:id/events/:event_id", to: "api/calendar#showevent"
+  # Be able to update event
+  get "/api/calendar/:id/events/:event_id/update", to: "api/calendar#updateevent"
+  # Be able to delete event
+  get "/api/calendar/:id/events/:event_id/delete", to: "api/calendar#deleteevent"
 
 end

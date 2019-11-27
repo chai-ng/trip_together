@@ -17,7 +17,7 @@ class Api::VotesController < ApplicationController
     def show
     # Show specific trip from /trips/:id
     # GET /resource/:id
-        render json: Vote.find_by(id: params[:id])
+        render json: Vote.find_by(id: params[:vote_id])
     end
 
     def edit
@@ -26,13 +26,18 @@ class Api::VotesController < ApplicationController
     end
 
     def update
-    # Update a specific resource in the database
-    # GET /resource/:id
+    # change upvote to downvote
+        vote = Vote.where(id: params[:vote_id])
+        if vote.vote_type == 'upvote'
+            vote.vote_type = 'downvote'
+        else
+            vote.vote_type = 'downvote'
+        end
     end
 
     def delete
     # Destory a specific resource in the database from /trips/:id
     # DELETE /resource/:id
-        Vote.delete_by(id: params[:id])
+        Vote.delete_by(id: params[:vote_id])
     end
 end
