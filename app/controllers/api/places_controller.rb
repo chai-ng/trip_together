@@ -1,7 +1,7 @@
 class Api::PlacesController < ApplicationController
     def index
-    # List all resources for a given trip_id
-    render json: Place.where(trip_id: params[:trip_id])
+        # Show all places for this trip
+        render json: Place.where(trip_id: params[:trip_id])
     end
 
     def search
@@ -15,29 +15,29 @@ class Api::PlacesController < ApplicationController
         searchstring = params[:searchstring]
         uri = URI("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=#{searchstring}&inputtype=textquery&fields=type,photos,formatted_address,name,rating,opening_hours,geometry&key=#{ENV["GOOGLE_API_KEY"]}")
         @results = Net::HTTP.get(uri) 
-        @results = JSON.parse(@results)
+        @results = JSON.parse(@results)["candidates"][0]
         
         place = Place.new
-        place.name = @results["candidates"][0]["name"]
+        place.name = @results["name"]
         place.trip_id = params[:trip_id]
         place.user_id = current_user.id
-        place.longitude = @results["candidates"][0]["geometry"]["location"]["lat"]
-        place.latitude = @results["candidates"][0]["geometry"]["location"]["lng"]
+        place.formatted_address = @results["formatted_address"]
+        place.longitude = @results["geometry"]["location"]["lat"]
+        place.latitude = @results["geometry"]["location"]["lng"]
+        place.rating = @results["rating"]
+        place.establishment_type = @results["types"]
         place.save
+
+        redirect_to "/api/places/#{place.id}"
     end
 
     def show
+        # Show specific place
         render json: Place.where(id: params[:id])
     end
 
-    def edit
-    end
-
-    def update
-    end
-
     def delete
-    # Destory a specific resource in the database from /trips/:id
-    # DELETE /resource/:id
+        # delete the place from the trip, based on the place_id
+        Place.delete_by(id: params[:id])
     end
 end
