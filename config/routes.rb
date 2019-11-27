@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   get "/api/places/search", to:"api/places#search"
   get "/api/places/create", to:"api/places#create"
   get "/api/places/:id", to: "api/places#show"
+  delete "/api/places/:id", to: "api/places#delete"
 
   # Travellers API
   get "/api/travellers", to:"api/travellers#index"
