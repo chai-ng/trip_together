@@ -1,8 +1,6 @@
 class Api::TripsController < ApplicationController
     def index
-    # List all resources in the database
-    # GET /resource
-    render json: Trip.where(user_id: current_user.id)
+        render json: Trip.where(user_id: current_user.id)
     end
 
     def create

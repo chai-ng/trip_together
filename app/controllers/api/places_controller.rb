@@ -28,7 +28,7 @@ class Api::PlacesController < ApplicationController
         place.establishment_type = @results["types"]
         place.save
 
-        redirect_to "/api/places/#{place.id}"
+        render json: place
     end
 
     def show
