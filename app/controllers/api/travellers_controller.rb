@@ -10,8 +10,8 @@ class Api::TravellersController < ApplicationController
         traveller.user_email = params[:user_email]
         traveller.existing_user = User.where(email: params[:user_email]).count > 0
         traveller.accepted_invite = true
-        traveller.user_id = current_user.id
         traveller.save
+        traveller.id
     end
 
     def delete

@@ -14,14 +14,16 @@ class Api::TripsController < ApplicationController
         trip.user_id = current_user.id
         trip.save
 
-        traveller = Traveller.new
-        traveller.trip_id = trip.id
-        traveller.user_email = current_user.email
-        traveller.existing_user = true
-        traveller.accepted_invite = true
-        traveller.save
+        # Create traveller
+        create_traveller = URI("http://localhost:3000/api/travellers/create?trip_id=#{trip.id}&user_email=#{current_user.email}")
+        traveller = Net::HTTP.get(create_traveller)
 
-        redirect_to "/trips/#{trip.id}/addpeople"
+        # Create calendar
+        create_calendar = URI("http://localhost:3000/api/calendar/create?summary=#{trip.name}")
+        trip.calendar_id = Net::HTTP.get(create_calendar)
+        trip.save
+
+        redirect_to "/trips/#{trip.id}/travellers"
         # render json: trip.id
     end
 
