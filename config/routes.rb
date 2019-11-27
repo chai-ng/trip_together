@@ -15,5 +15,7 @@ Rails.application.routes.draw do
   get "/logout", to: "sessions#destroy"
 
   # Places API
+  get "/api/places", to:"api/places#index"
   get "/api/places/search", to:"api/places#search"
+  get "/api/places/new", to:"api/places#new"
 end

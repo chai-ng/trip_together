@@ -2,6 +2,7 @@ class Api::PlacesController < ApplicationController
     def index
     # List all resources in the database
     # GET /resource
+    render json: Place.all
     end
 
     def search
@@ -14,7 +15,19 @@ class Api::PlacesController < ApplicationController
     def new
     # Create new resource in the database
     # GET /resource/new
-
+        searchstring = params[:searchstring]
+        uri = URI("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=#{searchstring}&inputtype=textquery&fields=type,photos,formatted_address,name,rating,opening_hours,geometry&key=#{ENV["GOOGLE_API_KEY"]}")
+        @results = Net::HTTP.get(uri) 
+        @results = JSON.parse(@results)
+        
+        place = Place.new
+        place.name = @results["candidates"][0]["name"]
+        place.trip_id = 1
+        place.user_id = 5
+        place.longitude = @results["candidates"][0]["geometry"]["location"]["lat"]
+        place.latitude = @results["candidates"][0]["geometry"]["location"]["lng"]
+        place.save
+        
     end
 
     def create
