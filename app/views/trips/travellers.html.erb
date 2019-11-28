@@ -36,22 +36,20 @@
 
 <script>
   var addTravellerForm = document.querySelector('.add-traveller-form');
-
   function addNewTraveler(event) {
     event.preventDefault();
     // Add new traveller to table;
     var travellerEmailInput = document.querySelector('.traveller-email-input');
-    debugger
     $.ajax({
       url: '/api/travellers/create',
       data: {
-        user_email: travellerEmailInput.value
-      }
+        user_email: travellerEmailInput.value,
+        trip_id: <%= params[:id] %>
+      },
       method: 'post'
-    }).done( response => {
-      console.log(response);
+    }).done(() => {
+      showTravellersByTripId();
     })  
-    // Call showTravellersByTripId();
   }
 
 

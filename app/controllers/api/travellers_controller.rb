@@ -12,14 +12,13 @@ class Api::TravellersController < ApplicationController
     end
 
     def create
-        byebug
         traveller = Traveller.new
         traveller.trip_id = params[:trip_id]
         traveller.user_email = params[:user_email]
         traveller.existing_user = User.where(email: params[:user_email]).count > 0
         traveller.accepted_invite = true
         traveller.save
-        traveller
+        render json: traveller
     end
 
     def delete
