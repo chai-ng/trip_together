@@ -1,10 +1,20 @@
-<h1>Are you rendering?</h1>
 
-Trip name
-Trip dates
-Trip location
+<h1>Oh the places you'll go...</h1>
 
-Second nav bar
-Places (pre-selected)
-Calendar
-Travellers
+ <h3><%= @trip.name %></h3>
+<h4> <%= @trip.start_date %> </h4>
+<h4> <%= @trip.end_date %> </h4>
+<p> <%= @trip.location %></p>
+
+<h2>Search for places you want to go to on your trip</h2>
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link active" href="/trips/:id/places">Places</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/trips/:id/calendar">Calendar</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/trips/:id/travellers">Travellers</a>
+  </li>
+</ul>
