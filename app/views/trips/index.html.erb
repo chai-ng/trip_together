@@ -4,19 +4,19 @@
   <div class="results">
   </div>
 
-  <form action="/trips/new">
-    <button class="btn btn-secondary">Create Trip</button>
-  </form>
+  <div class="section mt-3">
+    <form action="/trips/new">
+      <button class="btn btn-secondary">Create Trip</button>
+    </form>
+  </div>
+
 </div>
 
 <script>
     $.ajax(`/api/trips`).done( response => {
-      console.log(response)
       var counter = 0
-
       response.forEach(trip => {
-        
-
+      
         var tripCard = document.createElement('div')
         tripCard.classList.add('card', 'col-sm-5')
 
@@ -43,6 +43,7 @@
             cardLink.innerHTML = 'View'
             cardLink.href = `/trips/${trip.id}/places`
             tripBody.append(cardLink)
+        
         tripCard.append(tripBody)
           
         if (counter % 2 == 0) {
