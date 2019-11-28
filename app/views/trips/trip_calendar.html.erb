@@ -1,10 +1,27 @@
-<%= render "shared/trip_header"%>
+<div class="container-fluid">
+  <h3><%= @trip.name %></h3>
+  <h4> <%= @trip.start_date %> </h4>
+  <h4> <%= @trip.end_date %> </h4>
+  <p> <%= @trip.location %></p>
 
-<div class="container mt-3">
-    <h1>Trip Calendar</h1>
+  <h6>Oh the places you'll go...</h6>
+</div>
 
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link trip-tabs" href="/trips/<%= @trip.id %>/places">Places</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link trip-tabs active" href="/trips/<%= @trip.id %>/calendar">Calendar</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link trip-tabs" href="/trips/<%= @trip.id %>/travellers">Travellers</a>
+  </li>
+</ul>
+
+<div class="container-fluid mt-3">
     <div class="section mt-3">
-        <h2>Events</h2>
+        <h2>Calendar</h2>
         <table class="table">
             <thead>
                 <tr>

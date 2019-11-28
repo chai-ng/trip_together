@@ -1,0 +1,20 @@
+<div class="container-fluid">
+  <h3><%= @trip.name %></h3>
+  <h4> <%= @trip.start_date %> </h4>
+  <h4> <%= @trip.end_date %> </h4>
+  <p> <%= @trip.location %></p>
+
+  <h6>Oh the places you'll go...</h6>
+</div>
+
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link trip-tabs" href="/trips/<%= @trip.id %>/places">Places</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link trip-tabs active" href="/trips/<%= @trip.id %>/calendar">Calendar</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link trip-tabs" href="/trips/<%= @trip.id %>/travellers">Travellers</a>
+  </li>
+</ul>
