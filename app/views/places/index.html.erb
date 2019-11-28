@@ -12,10 +12,9 @@
     <br>
 
     <div class="card-container card mb-3 vote-line">
-      <div class="vote circle">
-        <div class="increment up"></div>
-        <div class="increment down"></div>
-        <div class="count">0</div>
+        <button type="button" class="btn btn-primary">
+          Notifications <span class="badge badge-light">4</span>
+        </button>
       </div>
       <div>
         <div class="card mb-3" style="max-width: 540px;">
@@ -131,40 +130,47 @@
     var apiName = document.querySelector('.api-place-name')
     var apiAddress = document.querySelector('.api-place-address')
 
+
     $(document).ready(function () {
       $.ajax(`/api/places?trip_id=<%= params[:id] %>`).done(response => {
+        console.log(response)
         response.forEach(place => {
-          apiName.textContent = place.name
-          apiAddress.textContent = place.formatted_address
 
-          var tripCard = document.createElement(‘div’)
-          tripCard.classList.add(‘card’, ‘col - sm - 5’)
+          //past code for api info
+          // apiName.textContent = place.name
+          // apiAddress.textContent = place.formatted_address
 
-          var tripBody = document.createElement(‘div’)
-          tripBody.classList.add(‘card - body’)
 
-          var cardTitle = document.createElement(‘h5’)
-          cardTitle.classList.add(‘card - title’)
-          cardTitle.innerHTML = trip.name
+
+          var tripCard = document.createElement('div')
+          tripCard.classList.add('card', 'col-sm-5')
+
+          var tripBody = document.createElement('div')
+          tripBody.classList.add('card-body')
+          
+          var cardTitle = document.createElement('h5')
+          cardTitle.classList.add('card-title')
+          cardTitle.innerHTML = place.name
           tripBody.append(cardTitle)
-
-          var cardSubtitle = document.createElement(‘h6’)
-          cardSubtitle.classList.add(‘card - subtitle’, ‘mb - 2’, ‘text - muted’)
-          cardSubtitle.innerHTML = trip.location
+          
+          var cardSubtitle = document.createElement('h6')
+          cardSubtitle.classList.add('card-subtitle', 'mb-2', 'text-muted')
+          cardSubtitle.innerHTML = place.formatted_address
           tripBody.append(cardSubtitle)
-
-          var cardText = document.createElement(‘p’)
-          cardText.classList.add(‘card - text’)
-          cardText.innerHTML = `${trip.start_date} - ${trip.end_date}`
+          debugger
+          var cardText = document.createElement('p')
+          cardText.classList.add('card-text')
+          cardText.innerHTML = place.establishment_type[0].replace("_", " ")
           tripBody.append(cardText)
-
-          var cardLink = document.createElement(‘a’)
-          cardLink.classList.add(‘card - link’)
-          cardLink.innerHTML = ‘View’
-          cardLink.href = `/trips/${trip.id}/places`
+          
+          var cardLink = document.createElement('a')
+          cardLink.classList.add('card-link')
+          cardLink.innerHTML = 'Add to calendar'
+          cardLink.href = `/trips/${trip.id}/calendar/new`
           tripBody.append(cardLink)
           tripCard.append(tripBody)
 
+          $('.vote-line').append(tripCard)
         })
       })
     });
@@ -197,6 +203,8 @@
         $('.search-result').show()
       })
     })
+
+    // script to create api/places/create?searchstring=${searchstring}&trip_id=<%= params[:id] %>
 
 
 
