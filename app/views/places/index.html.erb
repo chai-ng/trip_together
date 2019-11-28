@@ -3,6 +3,7 @@
   <h4> <%= @trip.start_date %> </h4>
   <h4> <%= @trip.end_date %> </h4>
   <p> <%= @trip.location %></p>
+  <input type="hidden" value="<%= @trip.id %>" id="trip_id">
 
   <h6>Oh the places you'll go...</h6>
 </div>
@@ -20,54 +21,45 @@
 </ul>
 
 <div class="row places-list">
-  <div class="col-4 p-5">
-    <h3>Vote for your places</h3>
-    <div class="vote-line flex-column overflow-auto">
-    </div>
-  </div>
+  <div class="col-4 p-5 overflow-auto" style="max-height: 72vh">
+    <form action="" class="search-form form-inline mb-4 w-100">
+      <input class="form-control mr-4" type="text" placeholder="Search for places" aria-label="Search"
+        name="searchstring" style="min-width: 70%">
+      <button type="submit" class="btn btn-primary" style="min-width: 23.5%">Search</button>
+    </form>
 
-  <div class="col-8 p-5">
-    <h2>Search for places you want to go to on your trip</h2>
+    <div class="search-result-ul card mb-3 pl-0 search-result">
+      <div class="row">
+        <div class="col-md-4">
+          <img src="" class="card-img" alt="">
+        </div>
 
-    <div class="md-form active-pink active-pink-2 mb-3 mt-0">
-      <form action="" class="search-form">
-        <input class="form-control" type="text" placeholder="times square" aria-label="Search" name="searchstring">
-        <button type="submit" class="btn-search">Search</button>
-      </form>
-    </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title place-name"></h5>
+            <p class="card-text place-rating"></p>
+            <p class="card-text place-type"></p>
+            <p class="card-text place-address"></p>
 
-    <ul class="search-result-ul">
-      <div class="card-container card mb-3 search-result" style="max-width: 540px;">
-        <div class="row no-gutters">
-          <div class="col-md-4">
-            <img src="" class="card-img" alt="">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title place-name"></h5>
-              <p class="card-text place-rating"></p>
-              <p class="card-text place-type"></p>
-              <p class="card-text place-address"></p>
-
-              <p class="card-text"><small class="text-muted"></small></p>
-              <button type="button" class="btn btn-secondary place-submit-btn" data-toggle="tooltip"
-                data-placement="bottom" title="Tooltip on bottom">
-                Add Place
-              </button>
-            </div>
+            <p class="card-text"><small class="text-muted"></small></p>
+            <button type="button" class="btn btn-secondary place-submit-btn" data-toggle="tooltip"
+              data-placement="bottom" title="Tooltip on bottom">Add to Trip</button>
           </div>
         </div>
-    </ul>
+      </div>
+    </div>
+
+    <div class="vote-line flex-column">
+    </div>
+
+  </div>
+
+  <div class="col-8 p-5" style="max-height: 100vh">
     <div id="map-container-google-1" class="z-depth-1-half map-container" style="height: 300px">
       <iframe src="https://maps.google.com/maps?q=paris&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
         style="border:0" allowfullscreen></iframe>
     </div>
-
-    <!--  Code to help with pinning places in-->
-    <p>
-      <div id="map"></div>
-    </p>
-    </div>
+  </div>
 </div>
 
 <script>
@@ -95,14 +87,25 @@
     });
   });
 
+
+  var createVote = function(event) {
+    place_id = $(event.target).find('#place_id')[0].value
+    vote_type = $(event.target).find('#vote_type')[0].value
+    trip_id = $('#trip_id')[0].value
+    console.log(place_id)
+    $.ajax(`/api/votes/create?place_id=${place_id}&trip_id=${trip_id}&vote_type=${vote_type}`).done( response => {
+      console.log(response)
+    })
+    // $('/api/votes/create?place_id=&trip_id=&vote_type="upvote")
+  }
+
   // existing places for this trip in the api
   $(document).ready(function () {
     $.ajax(`/api/places?trip_id=<%= params[:id] %>`).done(response => {
-      console.log(response)
       response.forEach(place => {
 
         var tripCard = document.createElement('div')
-        tripCard.classList.add('card')
+        tripCard.classList.add('card', 'mb-3')
 
         var tripBody = document.createElement('div')
         tripBody.classList.add('card-body')
@@ -122,36 +125,45 @@
         cardText.innerHTML = place.establishment_type.join(', ').replace(/_/g, ' ')
         tripBody.append(cardText)
 
-        var cardLink = document.createElement('a')
-        cardLink.classList.add('card-link')
-        cardLink.innerHTML = 'Add to calendar'
-        cardLink.href = `/trips/<%= @trip.id %>/calendar/new`
-        tripBody.append(cardLink)
+        var row = document.createElement('div')
+        row.classList.add('row', 'justify-content-around', 'd-flex')
+          
+          var upButton = document.createElement('button')
+          upButton.classList.add('btn', 'btn-primary', 'btn-sm', 'voting-buttons')
+          upButton.textContent = 'upvote'
+          var upVotes = document.createElement('span')
+          upVotes.classList.add('badge', 'badge-light', 'ml-2')
+          upVotes.innerHTML = place.upvote
+          upButton.append(upVotes)
+          $(upButton).append($("<input>").attr({type: 'hidden', id: 'place_id', value: place.id}))
+          $(upButton).append($("<input>").attr({type: 'hidden', id: 'vote_type', value: 'upvote'}))
+          upButton.addEventListener('click', createVote)
+          row.append(upButton)
 
-        var upButton = document.createElement('button')
-        upButton.classList.add('btn', 'btn-primary')
-        upButton.textContent = 'Upvotes'
-        var upVotes = document.createElement('span')
-        upVotes.classList.add('badge', 'badge-light')
-        upVotes.innerHTML = place.upvote
-        upButton.append(upVotes)
-        tripBody.append(upButton)
+          var downButton = document.createElement('button')
+          downButton.classList.add('btn', 'btn-primary', 'btn-sm', 'voting-button')
+          downButton.textContent = 'downvote'
+          var downVote = document.createElement('span')
+          downVote.classList.add('badge', 'badge-light', 'ml-2')
+          downVote.innerHTML = place.downvote
+          downButton.append(downVote)
+          $(downButton).append($("<input>").attr({type: 'hidden', id: 'place_id', value: place.id}))
+          $(downButton).append($("<input>").attr({type: 'hidden', id: 'vote_type', value: 'downvote'}))
+          downButton.addEventListener('click', createVote)
+          row.append(downButton)
 
-        var downButton = document.createElement('button')
-        downButton.classList.add('btn', 'btn-primary')
-        downButton.textContent = 'Downvotes'
-        var downVote = document.createElement('span')
-        downVote.classList.add('badge', 'badge-light')
-        downVote.innerHTML = place.downvote
-        downButton.append(downVote)
-        tripBody.append(downButton)
-
+          var cardLink = document.createElement('a')
+          cardLink.classList.add('card-link', 'btn-sm')
+          cardLink.innerHTML = 'Add to calendar'
+          cardLink.href = `/trips/<%= @trip.id %>/calendar/new`
+          row.append(cardLink)
+        
+        tripBody.append(row)
         tripCard.append(tripBody)
         $('.vote-line').append(tripCard)
       })
     })
   });
-
 
   //script to bring in the search from google and api
 

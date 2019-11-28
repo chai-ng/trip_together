@@ -4,10 +4,9 @@ class Api::VotesController < ApplicationController
         render json: Vote.where(trip_id: params[:trip_id])
     end
 
-    def sum_by_place
+    def sum_by_place_and_vote(place_id, vote_type)
         # sum by place_id and vote_type
-        result = Vote.group(:place_id, :vote_type).count
-        render json: result
+        Vote.where(place_id: place_id, vote_type: vote_type).count
     end
 
     def create
@@ -17,7 +16,8 @@ class Api::VotesController < ApplicationController
         vote.vote_type = params[:vote_type]
         vote.user_id = current_user.id
         vote.save
-        render json: vote.id
+
+        render json: sum_by_place_and_vote(params[:place_id], params[:vote_type])
     end
 
     def update
