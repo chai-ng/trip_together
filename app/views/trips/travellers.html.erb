@@ -1,5 +1,13 @@
 <h1>Add travellers here</h1>
 
-<p>This trip id is <%= params[:id] %></p>
+<%#= Traveller.all.to_a %>
+<script>
+    $.ajax(`/api/trips/<%= params[:id] %>`).done( response => {
 
-<%= Traveller.all.to_a %>
+      console.log(response);
+
+      var element = document.createElement('h2');  
+      element.textContent = response.name;
+      document.body.appendChild(element);
+    })
+</script>
