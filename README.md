@@ -2,13 +2,15 @@
 
 Demo here: [TripTogether](http://triptogether-ga.herokuapp.com/)
 
+Created by [Chai Ng](https://github.com/chai-ng), [Emile Desfontaines](https://github.com/Katzen85), and [Nikki Ricks](https://github.com/nikkiricks)
+
+![](app/assets/images/TripTogether_screenshot.png)
+
 Trip Together is a collaborative, and democratic travel app helping you to plan trips around your location and schedule.
 
 Currently in the market there's no platform where you can plan a small group trip and have a shared itinerary. TripTogether allows you conveniently log in with your google account, create a new trip, invite your friends, search for places of interest, and vote as a group on where you would like to go. You can then add those events to your google calendar for convenient access while you're on the go. 
 
-![](app/assets/images/TripTogether_screenshot.png)
 
-Created by [Chai Ng](https://github.com/chai-ng), [Emile Desfontaines](https://github.com/Katzen85), and [Nikki Ricks]()
 
 ## Technology used
 
@@ -24,7 +26,7 @@ Some features that the user will want in planning their trip are:
 * Having multiple trips
 * Inviting different friends to different trips
 * Searching on google and displaying in a map, points of interest with information like reviews, opening times, costs, location
-* Voting on the places of interest as a group so we can see what we all priotize for the trp
+* Voting on the places of interest as a group and see what we prioritise for the trip
 * Adding the top places of interest and then creating an event on a group calendar where we can all have access to it before and during our event.
 
 ## Planning Process
@@ -80,9 +82,9 @@ Some of the challenges we faced were:
 
 * RESTful routes can save you a lot of time and grief 
 
-* How and when to use different languages. It was important to use to not have a page refresh, so setting up our own API so we could use JavaScript with AJAX and jQuery was neccessary. 
+* How and when to use different languages. It was important to us to not have a page refresh with every request, so setting up our own API so we could use JavaScript with AJAX and jQuery was necessary. 
 
-* Researching and using Google API's
+* Researching and using Google API's:
   * OAuth
   * Places
   * Calendar
@@ -91,8 +93,7 @@ Some of the challenges we faced were:
 
 * Budget feature. We wanted users to see how much they were spending on the trip in total and per day so they could adjust their planned activities. We also wanted to allow users to insert anything that they had paid for before and during the trip and briefly researched using the SplitWise API to handle doing the calculations but we ran out of time.
 
-* We ran into google adding a paywall to place's data categories like: photos, website, phone number's, open hours that would be important as a user to have. 
+* We ran into google adding a paywall to place's data categories like: photos, website, phone number, open hours that would be important as a user to have. 
 
-* 
-
+* Email notification. The ability to send an email to the different travellers in your group notifying them to join the trip.
 
