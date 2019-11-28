@@ -41,7 +41,7 @@ class TripsController < ApplicationController
     end
 
     def calendar
-        @calendar_link = 
+        @trip = Trip.find(params[:id])
         render :trip_calendar
     end
 end

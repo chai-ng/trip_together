@@ -27,8 +27,6 @@ class Api::TripsController < ApplicationController
     end
 
     def show
-    # Show specific trip from /trips/:id
-    # GET /resource/:id
         render json: Trip.find_by(id: params[:id])
     end
 
