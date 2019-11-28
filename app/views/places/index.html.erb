@@ -133,7 +133,7 @@
       var calendarButton = document.createElement('a')
       calendarButton.classList.add('btn', 'btn-secondary', 'btn-sm')
       calendarButton.innerHTML = 'Add to calendar'
-      calendarButton.href = `/trips/${this_trip_id}/calendar/new`
+      calendarButton.href = `/trips/${this_trip_id}/calendar/new?place_id=${place.id}`
       row.append(calendarButton)
 
       var deleteButton = document.createElement('button')
