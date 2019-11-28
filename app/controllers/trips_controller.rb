@@ -36,6 +36,7 @@ class TripsController < ApplicationController
 
     def travellers
         @travellers = Traveller.where(trip_id: params[:id])
+        @trip = Trip.find(params[:id])
         render :travellers
     end
 
