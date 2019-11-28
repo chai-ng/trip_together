@@ -3,7 +3,7 @@
 <h1>Add travellers here</h1>
 
 <form action="" class="add-traveller-form">
-  <input type="text" placeholder="Traveller email address">
+  <input type="text" placeholder="Traveller email address" class="traveller-email-input">
   <button class='add-traveller-btn'>Add Traveller</button>
 </form>
 
@@ -40,6 +40,17 @@
   function addNewTraveler(event) {
     event.preventDefault();
     // Add new traveller to table;
+    var travellerEmailInput = document.querySelector('.traveller-email-input');
+    debugger
+    $.ajax({
+      url: '/api/travellers/create',
+      data: {
+        user_email: travellerEmailInput.value
+      }
+      method: 'post'
+    }).done( response => {
+      console.log(response);
+    })  
     // Call showTravellersByTripId();
   }
 
