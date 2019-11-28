@@ -2,13 +2,10 @@ class Api::PlacesController < ApplicationController
     def index
         places = Place.where(trip_id: params[:trip_id]).to_a
 
-        byebug
-
         places.each do |place|
             votes = Vote.where(place_id: place.id).group(:vote_type).count(:id).to_a
             votes.each do |vote|
-                place.upvote = 
-                place.downvote = 
+                place[vote[0]] = vote[1]
             end
         end
 
