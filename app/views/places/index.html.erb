@@ -49,8 +49,28 @@
       </form>
     </div>
 
-    <ul>
-      <li>times square</li>
+    <ul class="search-result-ul">
+
+    <div class="card-container card mb-3" style="max-width: 540px;">
+      <div class="row no-gutters">
+        <div class="col-md-4">
+          <img src="" class="card-img" alt="">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title place-name"></h5>
+            <p class="card-text place-rating"></p>
+            <p class="card-text place-type"></p>
+            <p class="card-text place-address"></p>
+            
+            <p class="card-text"><small class="text-muted"></small></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
     </ul>
 
 
@@ -95,27 +115,32 @@
     });
   });
 
-  var btnSearch = document.querySelector('.btn-search')
-  var ul = document.querySelector('ul')
+  // var btnSearch = document.querySelector('.btn-search')
+  var ul = document.querySelector('.search-result-ul')
   var input = document.querySelector('input')
   var searchFrom = document.querySelector('.search-form')
+  var placeName = document.querySelector('.place-name')
+  var placeRating = document.querySelector('.place-rating')
+  var placeType = document.querySelector('.place-type')
+  var placeAddress = document.querySelector('.place-address')  
+  var divCard = document.querySelector('.card-container')
+
+  
 
   searchFrom.addEventListener('submit', (event) => {
     event.preventDefault()
     searchstring = $('.form-control')[0].value
-    // var place = input.value
-
     $.ajax(`/api/places/search?searchstring=${searchstring}`).done(response => {
     response.candidates.forEach(place => {
-      // var h1 = document.createElement('h1')
-      // h1.innerHTML = place.name
-      // var h3 = document.createElement('h3')
-      // h3.innerHTML = place.rating
-      // document.body.appendChild(h1)
-      // document.body.appendChild(h3)
-      var li = document.createElement('li')
-      ul.appendChild(li)
-      li.textContent = place.name
+      
+      // divCard.classList.add('card mb-3')
+      console.log(place)
+      placeName.textContent = place.name
+      placeRating.textContent = place.rating
+      placeType.textContent = place.types[0].replace("_", " ")
+      placeAddress.textContent = place.formatted_address
+      
+      // ul.appendChild(li)
 
     // <button type="button" class="btn btn-secondary place-submit-btn" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">
     //   Add Place
