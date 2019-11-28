@@ -67,7 +67,6 @@
     place_id = $(event.target).find('.place_id')[0].value
     vote_type = $(event.target).find('.vote_type')[0].value
 
-
     $.ajax(`/api/votes/create?place_id=${place_id}&trip_id=${this_trip_id}&vote_type=${vote_type}`).done( response => {
       if (jQuery.isEmptyObject(response)) {
         $(event.target).parent().children().find('span').html(0)
