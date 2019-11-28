@@ -18,3 +18,5 @@ require("bootstrap-sprockets")
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+
+$('.button_to').addClass('btn', 'btn-link')
