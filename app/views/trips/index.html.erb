@@ -1,11 +1,59 @@
-<h1>Trips</h1>
+<div class="container">
+  <h1>Trips</h1>
 
-// Show all Trips
+  <div class="results">
+  </div>
 
-<h5>Trip Title</h5>
-<h6>Trip Month</h6>
-<h6>Trip Duration</h6>
+  <form action="/trips/new">
+    <button class="btn btn-secondary">Create Trip</button>
+  </form>
+</div>
 
-<form action="/trips/new">
-  <button>Create Trip</button>
-</form>
+<script>
+    $.ajax(`/api/trips`).done( response => {
+      console.log(response)
+      var counter = 0
+
+      response.forEach(trip => {
+        
+
+        var tripCard = document.createElement('div')
+        tripCard.classList.add('card', 'col-sm-6')
+
+          var tripBody = document.createElement('div')
+          tripBody.classList.add('card-body')
+
+            var cardTitle = document.createElement('h5')
+            cardTitle.classList.add('card-title')
+            cardTitle.innerHTML = trip.name
+            tripBody.append(cardTitle)
+
+            var cardSubtitle = document.createElement('h6')
+            cardSubtitle.classList.add('card-subtitle', 'mb-2', 'text-muted')
+            cardSubtitle.innerHTML = trip.location
+            tripBody.append(cardSubtitle)
+
+            var cardText = document.createElement('p')
+            cardText.classList.add('card-text')
+            cardText.innerHTML = `${trip.start_date} - ${trip.end_date}`
+            tripBody.append(cardText)
+
+            var cardLink = document.createElement('a')
+            cardLink.classList.add('card-link')
+            cardLink.innerHTML = 'View'
+            cardLink.href = `/trips/${trip.id}/places`
+            tripBody.append(cardLink)
+          
+        if (counter % 2 == 0) {
+          var row = document.createElement('div')
+          row.classList.add('row', 'trips')
+          row.append(tripCard)
+        } else {
+          
+        }
+        tripCard.append(tripBody)
+        $('.results')[0].appendChild(tripCard)
+        counter += 1
+      })
+    })
+</script>
