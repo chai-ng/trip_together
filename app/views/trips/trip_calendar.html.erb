@@ -1,24 +1,35 @@
-<%= render "shared/trip_header"%>
+<div class="container-fluid">
+  <h3><%= @trip.name %></h3>
+  <h4> <%= @trip.start_date %> </h4>
+  <h4> <%= @trip.end_date %> </h4>
+  <p> <%= @trip.location %></p>
+  <input type="hidden" value="<%= @trip.id %>" id="trip_id">
 
-<div class="container mt-3">
-    <h1>Trip Calendar</h1>
+  <h6>Oh the places you'll go...</h6>
+</div>
 
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link trip-tabs" href="/trips/<%= @trip.id %>/places">Places</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link trip-tabs active" href="/trips/<%= @trip.id %>/calendar">Calendar</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link trip-tabs" href="/trips/<%= @trip.id %>/travellers">Travellers</a>
+  </li>
+</ul>
+
+<div class="container-fluid mt-3">
     <div class="section mt-3">
-        <h2>Events</h2>
-        <table class="table">
+        <table class="table table-bordered">
             <thead>
-                <tr>
-                    <th scope="col">Time</th>
-                    <th scope="col">Event</th>
+                <tr class="date-header">
                 </tr>
             </thead>
             <tbody>
-                <%# <% @result.items.each do |event| %>
-                <%# <tr> %>
-                    <%# <th scope="row"><%= event.start.date_time || event.start.date </th> %>
-                    <%# <td><%=event.summary</td> %>
-                <%# </tr> %>
-                <%# <% end %>
+                <tr class="event-table">
+                </tr>
             </tbody>
         </table>
     </div>
@@ -29,11 +40,25 @@
 </div>
 
 <script>
-    $.ajax(`/api/places?trip_id=<%= params[:id] %>`).done( response => {
-        response.items.forEach(event => {
-            var h1 = document.createElement('h1')
-            h1.innerHTML = event.summary
-            $('.section.mt-3')[0].appendChild(h1)
+    var this_trip_id = $('#trip_id')[0].value
+    $.ajax(`/api/calendar/${this_trip_id}`).done( response => {
+        
+        // find unique dates as col headers
+        dates = $.uniqueSort(response.items.map(item => new Date(item.start.dateTime).toDateString()))
+        dates.forEach( date => {
+            // create table header
+            var header = $('<th></th>').attr({scope: "col"}).html(date)
+            $('.date-header').append(header)
+            data = $('<td></td>').attr({class: 'event-space'})
+            $('.event-table').append(data)
+            // fetch events on the same day
+            var events = response.items.filter( item => new Date(item.start.dateTime).toDateString() == date)
+            events.forEach(event => {
+                $('td').last().append(`${event.summary}<br/>
+                                        ${event.location}<br/>
+                                        ${moment(event.start.dateTime).format("h:mm A")} - ${moment(event.end.dateTime).format("h:mm A")}<br/>
+                                        <br/>`)
+            });
         })
     })
 </script>
