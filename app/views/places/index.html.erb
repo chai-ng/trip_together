@@ -92,9 +92,8 @@
     place_id = $(event.target).find('#place_id')[0].value
     vote_type = $(event.target).find('#vote_type')[0].value
     trip_id = $('#trip_id')[0].value
-    console.log(place_id)
     $.ajax(`/api/votes/create?place_id=${place_id}&trip_id=${trip_id}&vote_type=${vote_type}`).done( response => {
-      console.log(response)
+      $(event.target).find('span')[0].innerHTML = response
     })
     // $('/api/votes/create?place_id=&trip_id=&vote_type="upvote")
   }

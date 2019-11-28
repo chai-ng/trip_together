@@ -1,8 +1,15 @@
 class Api::PlacesController < ApplicationController
     def index
-        # Show all places for this trip with 
-        # UPDATE THIS TO ALSO SHOW VOTES
-        render json: Place.where(trip_id: params[:trip_id])
+        places = Place.where(trip_id: params[:trip_id]).to_a
+
+        places.each do |place|
+            votes = Vote.where(place_id: place.id).group(:vote_type).count(:id).to_a
+            votes.each do |vote|
+                place[vote[0]] = vote[1]
+            end
+        end
+
+        render json: places
     end
 
     def search

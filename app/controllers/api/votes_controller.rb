@@ -10,12 +10,18 @@ class Api::VotesController < ApplicationController
     end
 
     def create
-        vote = Vote.new
-        vote.place_id = params[:place_id]
-        vote.trip_id = params[:trip_id]
-        vote.vote_type = params[:vote_type]
-        vote.user_id = current_user.id
-        vote.save
+        # if Vote.where(place_id: params[:place_id], user_id: current_user.id).count > 0
+        #     Vote.where(place_id: params[:place_id], user_id: current_user.id)
+        #     # if same vote_type = delete
+        #     # if different vote_type = update
+        # else
+            vote = Vote.new
+            vote.place_id = params[:place_id]
+            vote.trip_id = params[:trip_id]
+            vote.vote_type = params[:vote_type]
+            vote.user_id = current_user.id
+            vote.save
+        # end
 
         render json: sum_by_place_and_vote(params[:place_id], params[:vote_type])
     end
