@@ -1,7 +1,7 @@
 class Api::TravellersController < ApplicationController
     def index
-        # return me all travellers associated with this trip
-        render json: Traveller.where(trip_id: params[:trip_id])
+        # return me all users associated with this trip
+        render json: User.where(email: Traveller.where(trip_id: params[:trip_id]).select('user_email'))
     end
 
     def create
