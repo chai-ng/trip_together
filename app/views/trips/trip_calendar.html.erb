@@ -37,8 +37,16 @@
 
 <script>
     var this_trip_id = $('#trip_id')[0].value
+    // var createEventCard = function(event) {
+    //   eventCard = $('<div></div>').attr({class:"card"})
+    //   eventCard.html(`${event.summary}<br/>
+    //                   ${event.location}<br/>
+    //                   ${moment(event.start.dateTime).format("h:mm A")} - ${moment(event.end.dateTime).format("h:mm A")}<br/>
+    //                   <br/>`)
+    //   $('td').last().append(eventCard)
+    // }
+
     $.ajax(`/api/calendar/${this_trip_id}`).done( response => {
-        
         // find unique dates as col headers
         dates = $.uniqueSort(response.items.map(item => new Date(item.start.dateTime).toDateString()))
         dates.forEach( date => {
@@ -50,11 +58,12 @@
             // fetch events on the same day
             var events = response.items.filter( item => new Date(item.start.dateTime).toDateString() == date)
             events.forEach(event => {
-                $('td').last().append(`${event.summary}<br/>
-                                        ${event.location}<br/>
-                                        ${moment(event.start.dateTime).format("h:mm A")} - ${moment(event.end.dateTime).format("h:mm A")}<br/>
-                                        <br/>`)
-            });
+              eventCard = $('<div></div>').attr({class:"card"}).html(`${event.summary}<br/>
+                                                              ${event.location}<br/>
+                                                              ${moment(event.start.dateTime).format("h:mm A")} - ${moment(event.end.dateTime).format("h:mm A")}<br/>
+                                                              <br/>`)
+              $('td').last().append(eventCard)
+            })
         })
     })
 </script>
