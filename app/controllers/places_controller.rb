@@ -3,7 +3,8 @@ class PlacesController < ApplicationController
     # List all resources in the database
     # GET /resource
 
-        @trip_name = Trip.name
+        @trip = Trip.find(params[:id])
+        
         @trip_header = "Are you rendering"
 
         # @places = Place.all 
