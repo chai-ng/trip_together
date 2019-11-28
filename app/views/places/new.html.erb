@@ -61,13 +61,5 @@
       })
   })
 
-  $.ajax(`/api/places?trip_id=<%=params[:id]%>`).done( response => {
-        response.forEach(place => {
-            var h1 = document.createElement(‘h1’)
-            h1.innerHTML = place.name
-            $(‘.section.mt-3’)[0].appendChild(h1)
-        })
-    })
-
 </script>
 
