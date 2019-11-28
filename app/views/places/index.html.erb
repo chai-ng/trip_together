@@ -1,11 +1,7 @@
-<div class="container-fluid">
-  <h3><%= @trip.name %></h3>
-  <h4> <%= @trip.start_date %> </h4>
-  <h4> <%= @trip.end_date %> </h4>
-  <p> <%= @trip.location %></p>
+<div class="container-fluid mt-1">
+  <h1 class="display-4"><%= @trip.name %></h1>
+  <p class="lead"> <%= @trip.location %> | <%= @trip.start_date.strftime("%d %B %Y") %> - <%= @trip.end_date.strftime("%d %B %Y") %></p>
   <input type="hidden" value="<%= @trip.id %>" id="trip_id">
-
-  <h6>Oh the places you'll go...</h6>
 </div>
 
 <ul class="nav nav-tabs mb-3">

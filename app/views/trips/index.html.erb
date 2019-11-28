@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mt-5">
   <h1>Trips</h1>
 
   <div class="results">
@@ -18,7 +18,7 @@
       response.forEach(trip => {
       
         var tripCard = document.createElement('div')
-        tripCard.classList.add('card', 'col-sm-5')
+        tripCard.classList.add('card', 'col', 'mr-3')
 
           var tripBody = document.createElement('div')
           tripBody.classList.add('card-body')
@@ -35,11 +35,11 @@
 
             var cardText = document.createElement('p')
             cardText.classList.add('card-text')
-            cardText.innerHTML = `${trip.start_date} - ${trip.end_date}`
+            cardText.innerHTML = `${moment(trip.start_date).format("D MMM YYYY")} - ${moment(trip.start_date).format("D MMM YYYY")}`
             tripBody.append(cardText)
 
             var cardLink = document.createElement('a')
-            cardLink.classList.add('card-link')
+            cardLink.classList.add('card-link', 'btn', 'btn-primary')
             cardLink.innerHTML = 'View'
             cardLink.href = `/trips/${trip.id}/places`
             tripBody.append(cardLink)
