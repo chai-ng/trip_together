@@ -1,20 +1,12 @@
 class Api::CalendarController < ApplicationController
-    def get_client
-        client = Google::Apis::CalendarV3::CalendarService.new
-        client.authorization = credentials_for(Google::Apis::CalendarV3::AUTH_CALENDAR)
-        client
-    end
-
+    include CalendarAccess
+    
     def calendar_id
         Trip.find_by(id: params[:trip_id]).calendar_id
     end
     
     def create
-        client = get_client()
-        new_calendar = Google::Apis::CalendarV3::Calendar.new(
-            summary: params[:summary],
-        )
-        result = client.insert_calendar(new_calendar)    
+        result = create_calendar(params[:summary])
         render json: result.id
     end
     

@@ -1,4 +1,6 @@
 class Api::TripsController < ApplicationController
+    include CalendarAccess
+
     def index
     # get all trips_id where the current user is a traveller in
     render json: Trip.where(id: Traveller.where(user_email: current_user.email).select('trip_id'))
@@ -14,12 +16,16 @@ class Api::TripsController < ApplicationController
         trip.save
 
         # Create traveller
-        create_traveller = URI("http://localhost:3000/api/travellers/create?trip_id=#{trip.id}&user_email=#{current_user.email}")
-        traveller = Net::HTTP.get(create_traveller)
+        traveller = Traveller.new
+        traveller.trip_id = trip.id
+        traveller.user_email = current_user.email
+        traveller.existing_user = true
+        traveller.accepted_invite = true
+        traveller.save
 
         # Create calendar
-        create_calendar = URI("http://localhost:3000/api/calendar/create?summary=#{trip.name}")
-        trip.calendar_id = Net::HTTP.get(create_calendar)
+        calendar = create_calendar(trip.name)
+        trip.calendar_id = calendar.id
         trip.save
 
         redirect_to "/trips/#{trip.id}/travellers"
