@@ -2,14 +2,46 @@
 
 <h1>Add travellers here</h1>
 
-<%#= Traveller.all.to_a %>
+<form action="" class="add-traveller-form">
+  <input type="text" placeholder="Traveller email address">
+  <button class='add-traveller-btn'>Add Traveller</button>
+</form>
+
 <script>
-    $.ajax(`/api/trips/<%= params[:id] %>`).done( response => {
 
-      console.log(response);
+  var currentTravellersHeader = document.createElement('h4');
+  currentTravellersHeader.textContent = "Current Travellers:";
+  document.body.appendChild(currentTravellersHeader);
 
-      var element = document.createElement('h2');  
-      element.textContent = response.name;
-      document.body.appendChild(element);
-    })
+  function showTravellersByTripId() {
+
+    var allTravellerElements = document.querySelectorAll('.traveller-element');
+    allTravellerElements.forEach(element => element.remove())
+
+    $.ajax(`/api/travellers?trip_id=<%= params[:id] %>`).done( response => {
+
+      response.forEach(response => {
+
+        var travellerElement = document.createElement('h5');  
+        travellerElement.textContent = response.email;
+        travellerElement.classList.add('traveller-element');
+        document.body.appendChild(travellerElement);
+
+      });
+    })  
+  }
+
+  showTravellersByTripId();
+</script>
+
+<script>
+  var addTravellerForm = document.querySelector('.add-traveller-form');
+
+  function addNewTraveler(event) {
+    event.preventDefault();
+    console.log("Form submitted");
+  }
+
+
+  addTravellerForm.addEventListener('submit', addNewTraveler)
 </script>
