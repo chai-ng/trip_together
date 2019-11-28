@@ -41,8 +41,13 @@ class TripsController < ApplicationController
     end
 
     def calendar
-        @calendar_link = 
         @trip = Trip.find(params[:id])
         render :trip_calendar
+    end
+
+    def calendar_new
+        @place = Place.find(params[:place_id])
+        @trip = Trip.find(params[:id])
+        render :new_event
     end
 end

@@ -15,19 +15,9 @@ Rails.application.routes.draw do
   
   # Trips
   get "/trips/:id/places", to: "places#index"
-    # Show me all of the places for this trip (/api/places?trip_id=)
-      # Create the box
-      # Plot on map
-    # Show me the total votes so far for each place
-    # Let me search
-    # Let me add (/api/places/create?searchstring=Melbourne+Aquarium&trip_id=)
-      # Take the new place object and plot it on the map
-      # Take the new place object and create the box that you can up and down vote on
-    # Let me up and downvote (/api/votes/create?place_id=&trip_id=&vote_type='upvote' or 'downvote')
-    # Let me add this place to a trip (redirect to /trips/:id/calendar/new?place_id=)
-    # Delete place of interest (DELETE /api/places/:place_id) - remove the box off the page / refresh page
   get "/trips/:id/places/new", to: "places#new"
   get "/trips/:id/calendar", to: "trips#calendar"
+  get "/trips/:id/calendar/new", to: "trips#calendar_new"
   get "/trips/:id/travellers", to: "trips#travellers"
   get "/trips/:id/addpeople", to: "trips#addpeople"
 
