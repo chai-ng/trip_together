@@ -6,7 +6,7 @@ class Api::VotesController < ApplicationController
 
     def sum_by_place
         # sum by place_id and vote_type
-        result = Vote.group(:place_id).group(:vote_type).count
+        result = Vote.group(:place_id, :vote_type).count
         render json: result
     end
 
@@ -17,6 +17,7 @@ class Api::VotesController < ApplicationController
         vote.vote_type = params[:vote_type]
         vote.user_id = current_user.id
         vote.save
+        render json: vote.id
     end
 
     def update

@@ -29,7 +29,7 @@
 </div>
 
 <script>
-    $.ajax(`/api/calendar/<%= params[:id] %>`).done( response => {
+    $.ajax(`/api/places?trip_id=<%= params[:id] %>`).done( response => {
         response.items.forEach(event => {
             var h1 = document.createElement('h1')
             h1.innerHTML = event.summary
