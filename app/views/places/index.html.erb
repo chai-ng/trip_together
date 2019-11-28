@@ -1,5 +1,9 @@
 <%= render "shared/trip_header"%>
 
+<h1><%= params[:id] %></h1>
+
+
+
 <h2>Places</h2>
 
 <div class="container">
@@ -51,7 +55,7 @@
 
     <ul class="search-result-ul">
 
-    <div class="card-container card mb-3" style="max-width: 540px;">
+    <div class="card-container card mb-3 search-result" style="max-width: 540px;">
       <div class="row no-gutters">
         <div class="col-md-4">
           <img src="" class="card-img" alt="">
@@ -68,6 +72,10 @@
         </div>
       </div>
     </div>
+
+    <button type="button" class="btn btn-secondary place-submit-btn" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">
+      Add Place
+    </button>
 
 
 
@@ -94,6 +102,10 @@
 
 
 <script>
+
+//script to help you vote
+
+$('.search-result').hide()
   $(function () {
     $(".increment").click(function () {
       var count = parseInt($("~ .count", this).text());
@@ -115,15 +127,35 @@
     });
   });
 
-  // var btnSearch = document.querySelector('.btn-search')
+  // search for 
+
+  $( document ).ready(function() {
+    console.log( "ready!" );
+    $.ajax(`api/places?trip_id=1`).done(response => {
+      response.forEach(place => {
+
+
+      })
+    })
+
+
+  });
+
+
+
+
+  //script to bring in the search from google and api
+
   var ul = document.querySelector('.search-result-ul')
   var input = document.querySelector('input')
   var searchFrom = document.querySelector('.search-form')
   var placeName = document.querySelector('.place-name')
   var placeRating = document.querySelector('.place-rating')
   var placeType = document.querySelector('.place-type')
-  var placeAddress = document.querySelector('.place-address')  
+  var placeAddress = document.querySelector('.place-address')
   var divCard = document.querySelector('.card-container')
+
+  
 
   
 
@@ -132,26 +164,15 @@
     searchstring = $('.form-control')[0].value
     $.ajax(`/api/places/search?searchstring=${searchstring}`).done(response => {
     response.candidates.forEach(place => {
-      
-      // divCard.classList.add('card mb-3')
-      console.log(place)
+    
+      // console.log(place)
       placeName.textContent = place.name
       placeRating.textContent = place.rating
       placeType.textContent = place.types[0].replace("_", " ")
       placeAddress.textContent = place.formatted_address
-      
-      // ul.appendChild(li)
 
-    // <button type="button" class="btn btn-secondary place-submit-btn" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">
-    //   Add Place
-    // </button>
-
-
-          // place.name
-          // place.formatted_address
-          // place.rating
-          // place.types(this is an array)
         })
+    $('.search-result').show()
       })
   })
 </script>
