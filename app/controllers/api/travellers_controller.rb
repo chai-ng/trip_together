@@ -1,7 +1,11 @@
 class Api::TravellersController < ApplicationController
     def index
         # return me all users associated with this trip
-        render json: User.where(email: Traveller.where(trip_id: params[:trip_id]).select('user_email'))
+        connection = ActiveRecord::Base.connection.raw_connection
+        connection.prepare('getTravellers', 'SELECT * FROM travellers LEFT OUTER JOIN users ON travellers.user_email = users.email WHERE trip_id = $1')
+        result = connection.exec_prepared('getTravellers', [params[:trip_id]])
+        render json: result
+        # render json: User.where(email: Traveller.where(trip_id: params[:trip_id]).select('user_email'))
     end
 
     def create
@@ -11,7 +15,7 @@ class Api::TravellersController < ApplicationController
         traveller.existing_user = User.where(email: params[:user_email]).count > 0
         traveller.accepted_invite = true
         traveller.save
-        traveller.id
+        traveller
     end
 
     def delete
