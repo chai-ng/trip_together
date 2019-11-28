@@ -12,12 +12,6 @@
     <br>
 
     <div class="card-container card mb-3 vote-line">
-      <div class="vote circle">
-        <div class="increment up"></div>
-        <div class="increment down"></div>
-        <div class="count">0</div>
-      </div>
-      <div>
         <div class="card mb-3" style="max-width: 540px;">
           <div class="row no-gutters">
             <div class="col-md-4">
@@ -35,8 +29,10 @@
             </div>
           </div>
         </div>
-      </div>
-      <a href="trips/<%=params[:id]%>/places/edit%" class="badge badge-secondary">Delete</a>
+
+        div
+
+        div
     </div>
 
 
@@ -133,38 +129,40 @@
 
     $(document).ready(function () {
       $.ajax(`/api/places?trip_id=<%= params[:id] %>`).done(response => {
-        response.forEach(place => {
-          apiName.textContent = place.name
-          apiAddress.textContent = place.formatted_address
 
+        console.log(response)
+
+        response.forEach(place => {
           var tripCard = document.createElement(‘div’)
           tripCard.classList.add(‘card’, ‘col - sm - 5’)
 
-          var tripBody = document.createElement(‘div’)
-          tripBody.classList.add(‘card - body’)
+          // var tripBody = document.createElement(‘div’)
+          // tripBody.classList.add(‘card - body’)
 
-          var cardTitle = document.createElement(‘h5’)
-          cardTitle.classList.add(‘card - title’)
-          cardTitle.innerHTML = trip.name
-          tripBody.append(cardTitle)
+          // var cardTitle = document.createElement(‘h5’)
+          // cardTitle.classList.add(‘card - title’)
+          // cardTitle.innerHTML = trip.name
+          // tripBody.append(cardTitle)
 
-          var cardSubtitle = document.createElement(‘h6’)
-          cardSubtitle.classList.add(‘card - subtitle’, ‘mb - 2’, ‘text - muted’)
-          cardSubtitle.innerHTML = trip.location
-          tripBody.append(cardSubtitle)
+          // var cardSubtitle = document.createElement(‘h6’)
+          // cardSubtitle.classList.add(‘card - subtitle’, ‘mb - 2’, ‘text - muted’)
+          // cardSubtitle.innerHTML = trip.location
+          // tripBody.append(cardSubtitle)
 
-          var cardText = document.createElement(‘p’)
-          cardText.classList.add(‘card - text’)
-          cardText.innerHTML = `${trip.start_date} - ${trip.end_date}`
-          tripBody.append(cardText)
+          // var cardText = document.createElement(‘p’)
+          // cardText.classList.add(‘card - text’)
+          // cardText.innerHTML = `${trip.start_date} - ${trip.end_date}`
+          // tripBody.append(cardText)
 
-          var cardLink = document.createElement(‘a’)
-          cardLink.classList.add(‘card - link’)
-          cardLink.innerHTML = ‘View’
-          cardLink.href = `/trips/${trip.id}/places`
-          tripBody.append(cardLink)
-          tripCard.append(tripBody)
+          // var cardLink = document.createElement(‘a’)
+          // cardLink.classList.add(‘card - link’)
+          // cardLink.innerHTML = ‘View’
+          // cardLink.href = `/trips/${trip.id}/places`
 
+          // tripBody.append(cardLink)
+          // tripCard.append(tripBody)
+
+          $('.vote-line').append(tripCard)
         })
       })
     });
@@ -197,8 +195,5 @@
         $('.search-result').show()
       })
     })
-
-
-
     // once user wants to add place totheir trip user presses button and it will show in their places above where they can vote on it
   </script>

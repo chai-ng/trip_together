@@ -17,6 +17,8 @@ class Api::PlacesController < ApplicationController
         @results = Net::HTTP.get(uri) 
         @results = JSON.parse(@results)["candidates"][0]
         
+        
+
         place = Place.new
         place.name = @results["name"]
         place.trip_id = params[:trip_id]
@@ -27,6 +29,7 @@ class Api::PlacesController < ApplicationController
         place.rating = @results["rating"]
         place.establishment_type = @results["types"]
         place.save
+
 
         render json: place
     end

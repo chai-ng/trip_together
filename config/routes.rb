@@ -29,15 +29,7 @@ Rails.application.routes.draw do
   get "/trips/:id/places/new", to: "places#new"
   get "/trips/:id/calendar", to: "trips#calendar"
   get "/trips/:id/travellers", to: "trips#travellers"
-  
-
   get "/trips/:id/addpeople", to: "trips#addpeople"
-
-  # Places API
-  get "/api/places", to:"api/places#index"
-  get "/api/places/search", to:"api/places#search"
-  get "/api/places/new", to:"api/places#new"
-  get "/api/places/:id", to:"api/places#show"
 
   # Trips API
   get "/api/trips", to:"api/trips#index"
@@ -51,7 +43,6 @@ Rails.application.routes.draw do
   get "/api/places/search", to:"api/places#search"
   get "/api/places/create", to:"api/places#create"
   get "/api/places/:id", to: "api/places#show"
-  patch "/api/places/:id/edit", to: "api/places#update"
   delete "/api/places/:id/delete", to: "api/places#delete"
 
   # Travellers API
