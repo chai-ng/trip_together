@@ -24,10 +24,11 @@
     style="border:0" allowfullscreen></iframe>
 </div>
 
+
+<!--  Code to help with pinning places in-->
 <p>
     <div id="map"></div>
 </p>
-
 
 <p>
   <%= image_tag "https://maps.googleapis.com/maps/api/staticmap?zoom=17&size=400x300&center=#{@place.latitude},#{@place.longitude}&key=#{ENV["GOOGLE_API_KEY"]}", alt: "Map" %>
@@ -44,7 +45,6 @@
     event.preventDefault()
     searchstring = $('.form-control')[0].value
     // var place = input.value
-
     $.ajax(`/api/places/search?searchstring=${searchstring}`).done(response => {
     response.candidates.forEach(place => {
       var h1 = document.createElement('h1')
@@ -60,7 +60,6 @@
         })
       })
   })
-
 
 </script>
 

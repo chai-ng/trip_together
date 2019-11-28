@@ -1,12 +1,14 @@
 <%= render "shared/trip_header"%>
 
+<h1><%= params[:id] %></h1>
+
+
+
 <h2>Places</h2>
 
 <div class="container">
 
   <div class="col">
-    <a class="btn btn-secondary" href="places/new" role="button">Add a place</a>
-
     <h3>Vote for the places you're interested in visiting </h3>
 
     <br>
@@ -35,63 +37,48 @@
           </div>
         </div>
       </div>
-
-      <a href="#" class="badge badge-secondary">Edit</a>
-      <a href="#" class="badge badge-secondary">Delete</a>
+      <a href="trips/<%=params[:id]%>/places/edit%" class="badge badge-secondary">Delete</a>
     </div>
 
 
-    <div class="vote-line">
-      <div class="vote circle">
-        <div class="increment up"></div>
-        <div class="increment down"></div>
-        <div class="count">0</div>
-      </div>
-      <div>
-        <h3>NGV</h3>
-      </div>
-    </div>
 
-    <div class="vote-line">
-      <div class="vote circle">
-        <div class="increment up"></div>
-        <div class="increment down"></div>
-        <div class="count">0</div>
-      </div>
-      <div>
-        <h3>Lune Bakery</h3>
-      </div>
-    </div>
-
-    <div class="vote-line">
-      <div class="vote circle">
-        <div class="increment up"></div>
-        <div class="increment down"></div>
-        <div class="count">0</div>
-      </div>
-      <div>
-        <h3>State Library</h3>
-      </div>
-    </div>
-  </div>
 
   <div class="col">
-    <h2>New Places</h2>
+    <h2>Search for places you want to go to on your trip</h2>
 
     <div class="md-form active-pink active-pink-2 mb-3 mt-0">
-      <form action="">
-        <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="searchstring">
+      <form action="" class="search-form">
+        <input class="form-control" type="text" placeholder="times square" aria-label="Search" name="searchstring">
         <button type="submit" class="btn-search">Search</button>
       </form>
     </div>
 
-    <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom"
-      title="Tooltip on bottom">
+    <ul class="search-result-ul">
+
+    <div class="card-container card mb-3 search-result" style="max-width: 540px;">
+      <div class="row no-gutters">
+        <div class="col-md-4">
+          <img src="" class="card-img" alt="">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title place-name"></h5>
+            <p class="card-text place-rating"></p>
+            <p class="card-text place-type"></p>
+            <p class="card-text place-address"></p>
+            
+            <p class="card-text"><small class="text-muted"></small></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button type="button" class="btn btn-secondary place-submit-btn" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">
       Add Place
     </button>
 
-    <ul>
-      <li>Place</li>
+
+
     </ul>
 
 
@@ -100,13 +87,14 @@
         style="border:0" allowfullscreen></iframe>
     </div>
 
+<!--  Code to help with pinning places in-->
     <p>
       <div id="map"></div>
     </p>
 
 
     <p>
-      <%# <%= image_tag "https://maps.googleapis.com/maps/api/staticmap?zoom=17&size=400x300&center=#{@place.latitude},#{@place.longitude}&key=#{ENV["GOOGLE_API_KEY"]}", alt: "Map" %> %>
+      <%# <%= image_tag "https://maps.googleapis.com/maps/api/staticmap?zoom=17&size=400x300&center=#{@place.latitude},#{@place.longitude}&key=#{ENV["GOOGLE_API_KEY"]}", alt: "Map" %>
     </p>
   </div>
 </div>
@@ -114,6 +102,10 @@
 
 
 <script>
+
+//script to help you vote
+
+$('.search-result').hide()
   $(function () {
     $(".increment").click(function () {
       var count = parseInt($("~ .count", this).text());
@@ -135,28 +127,52 @@
     });
   });
 
-    var btnSearch = document.querySelector('.btn-search')
-  var ul = document.querySelector('ul')
-  var input = document.querySelector('input')
+  // search for 
 
-  btnSearch.addEventListener('click', (event) => {
+  $( document ).ready(function() {
+    console.log( "ready!" );
+    $.ajax(`api/places?trip_id=1`).done(response => {
+      response.forEach(place => {
+
+
+      })
+    })
+
+
+  });
+
+
+
+
+  //script to bring in the search from google and api
+
+  var ul = document.querySelector('.search-result-ul')
+  var input = document.querySelector('input')
+  var searchFrom = document.querySelector('.search-form')
+  var placeName = document.querySelector('.place-name')
+  var placeRating = document.querySelector('.place-rating')
+  var placeType = document.querySelector('.place-type')
+  var placeAddress = document.querySelector('.place-address')
+  var divCard = document.querySelector('.card-container')
+
+  
+
+  
+
+  searchFrom.addEventListener('submit', (event) => {
     event.preventDefault()
     searchstring = $('.form-control')[0].value
-    // var place = input.value
-
     $.ajax(`/api/places/search?searchstring=${searchstring}`).done(response => {
     response.candidates.forEach(place => {
-      var h1 = document.createElement('h1')
-      h1.innerHTML = place.name
-      var h3 = document.createElement('h3')
-      h3.innerHTML = place.rating
-      document.body.appendChild(h1)
-      document.body.appendChild(h3)
-          // place.name
-          // place.formatted_address
-          // place.rating
-          // place.types(this is an array)
+    
+      // console.log(place)
+      placeName.textContent = place.name
+      placeRating.textContent = place.rating
+      placeType.textContent = place.types[0].replace("_", " ")
+      placeAddress.textContent = place.formatted_address
+
         })
+    $('.search-result').show()
       })
   })
 </script>
