@@ -52,9 +52,9 @@ Rails.application.routes.draw do
 
   # Votes API
   get "/api/votes", to:"api/votes#index"
+  get "/api/votes/byuser", to:"api/votes#by_user"
   get "/api/votes/sum", to:"api/votes#sum_by_place"
   get "/api/votes/create", to:"api/votes#create"
-  get "/api/votes/:id/update", to:"api/votes#update"
   delete "/api/votes/:id", to: "api/votes#delete"  
 
   # Calendar API

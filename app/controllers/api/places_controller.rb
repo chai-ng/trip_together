@@ -1,15 +1,15 @@
 class Api::PlacesController < ApplicationController
     def index
-        places = Place.where(trip_id: params[:trip_id]).to_a
+        places = Place.where(trip_id: params[:trip_id])
 
         places.each do |place|
             votes = Vote.where(place_id: place.id).group(:vote_type).count(:id).to_a
             votes.each do |vote|
                 place[vote[0]] = vote[1]
             end
+            place.save
         end
-
-        render json: places
+        render json: places.order(upvote: :asc)
     end
 
     def search
@@ -49,6 +49,7 @@ class Api::PlacesController < ApplicationController
 
     def delete
         # delete the place from the trip, based on the place_id
-        Place.delete_by(id: params[:id])
+        Vote.delete_by(place_id: params[:id])
+        render json: Place.delete_by(id: params[:id])
     end
 end
