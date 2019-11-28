@@ -23,7 +23,7 @@
       response.forEach(response => {
 
         var travellerElement = document.createElement('h5');  
-        travellerElement.textContent = response.email;
+        travellerElement.textContent = response.user_email;
         travellerElement.classList.add('traveller-element');
         document.body.appendChild(travellerElement);
 
@@ -47,8 +47,11 @@
         trip_id: <%= params[:id] %>
       },
       method: 'post'
-    }).done(() => {
-      showTravellersByTripId();
+    }).done(response => {
+      // debugger
+      var newTraveler = document.createElement('h5');
+      newTraveler.textContent = response.user_email;
+      document.body.appendChild(newTraveler);
     })  
   }
 
