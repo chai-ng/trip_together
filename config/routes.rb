@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get "/trips/:id/places/new", to: "places#new"
   get "/trips/:id/calendar", to: "trips#calendar"
   get "/trips/:id/calendar/new", to: "trips#calendar_new"
+  get "/trips/:id/events/new", to: "trips#event_new"
   get "/trips/:id/travellers", to: "trips#travellers"
   get "/trips/:id/addpeople", to: "trips#addpeople"
 
@@ -37,7 +38,7 @@ Rails.application.routes.draw do
 
   # Travellers API
   get "/api/travellers", to:"api/travellers#index"
-  post "/api/travellers/create", to:"api/travellers#create"
+  get "/api/travellers/create", to:"api/travellers#create"
   delete "/api/travellers/:id", to: "api/travellers#delete"
 
   # Votes API

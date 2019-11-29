@@ -28,8 +28,8 @@ class Api::TripsController < ApplicationController
         trip.calendar_id = calendar.id
         trip.save
 
-        redirect_to "/trips/#{trip.id}/travellers"
-        # render json: trip.id
+        # redirect_to "/trips/#{trip.id}/travellers"
+        render json: trip
     end
 
     def show
