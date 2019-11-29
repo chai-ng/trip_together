@@ -48,22 +48,27 @@
 
     $.ajax(`/api/travellers?trip_id=<%= params[:id] %>`).done( response => {
 
-      // debugger
-
       response.forEach(response => {
 
         var travellerElement = document.createElement('p');  
         travellerElement.textContent = response.user_email;
         travellerElement.classList.add('traveller-element');
         travellerElement.style.margin = '2px 2px 2px 25px';
+        document.body.appendChild(travellerElement);
+        
+        // Delete Traveller Button:
+        // var deleteButton = document.createElement('button')
+        // deleteButton.classList.add('btn', 'btn-light', 'btn-sm')
+        // deleteButton.innerHTML = 'Delete'
+        // deleteButton.href = `/api/travellers/${response.user_email}`
+        // travellerElement.append(deleteButton);
+      
 
         // var travellerProfileImage = document.createElement('img');
         // travellerProfileImage.src = response.image_url;
         // travellerProfileImage.style.width = '50px';
         // travellerProfileImage.style.borderRadius = '50%';
-        // .appendChild(travellerProfileImage)
-        document.body.appendChild(travellerElement);
-
+        // .appendChild(travellerProfileImage);  
       });
     })  
   }
