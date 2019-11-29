@@ -28,18 +28,23 @@
         <button class='add-traveller-btn btn btn-secondary' style='margin: 20px auto 20px auto'>Add Traveller</button>
       </form>
     </div>
+
+      <h4>Current Travellers:</h4>
+      <ul class="list-group">
+      </ul>
+      
 </div>
 
   
 <script>
 
-  var headerContainer = document.createElement('div');
-  headerContainer.style.margin = 'auto auto auto 15px';
-  headerContainer.style.padding = '15px 0 0 0';
-  headerContainer.style.borderTop = '1px solid grey';
-  var currentTravellersHeader = document.createElement('h4');
-  currentTravellersHeader.textContent = "Current Travellers:";
-  document.body.appendChild(headerContainer).appendChild(currentTravellersHeader);
+  // var headerContainer = document.createElement('div');
+  // headerContainer.style.margin = 'auto auto auto 15px';
+  // headerContainer.style.padding = '15px 0 0 0';
+  // headerContainer.style.borderTop = '1px solid grey';
+  // var currentTravellersHeader = document.createElement('h4');
+  // currentTravellersHeader.textContent = "Current Travellers:";
+  // document.body.appendChild(headerContainer).appendChild(currentTravellersHeader);
 
   function showTravellersByTripId() {
 
@@ -48,11 +53,15 @@
 
     $.ajax(`/api/travellers?trip_id=<%= params[:id] %>`).done( response => {
 
+
       response.forEach(response => {
 
-        var travellerContainer = document.createElement('div');
-        travellerContainer.classList.add('traveller-container');
-        travellerContainer.style.border = '0.5px solid rgba(0,0,255,0.2)';
+        var travellerContainer = document.createElement('li');
+        travellerContainer.classList.add('list-group-item', 'p-3');
+
+        // var travellerContainer = document.createElement('div');
+        // travellerContainer.classList.add('traveller-container', 'p-3');
+        // travellerContainer.style.border = '0.5px solid rgba(0,0,255,0.2)';
 
         var travellerElement = document.createElement('p');  
         travellerElement.textContent = response.user_email;
@@ -96,7 +105,8 @@
         travellerContainer.appendChild(travellerProfileImage);
         travellerContainer.appendChild(travellerElement);
 
-        document.body.appendChild(travellerContainer);
+        // document.body.appendChild(travellerContainer);
+        $('.list-group').append(travellerContainer)
       });
     })  
   }
