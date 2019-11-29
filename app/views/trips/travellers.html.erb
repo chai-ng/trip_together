@@ -35,7 +35,7 @@
 
   var headerContainer = document.createElement('div');
   headerContainer.style.margin = 'auto auto auto 15px';
-  headerContainer.style.padding = '15px 0 5px 0';
+  headerContainer.style.padding = '15px 0 0 0';
   headerContainer.style.borderTop = '1px solid grey';
   var currentTravellersHeader = document.createElement('h4');
   currentTravellersHeader.textContent = "Current Travellers:";
@@ -48,12 +48,20 @@
 
     $.ajax(`/api/travellers?trip_id=<%= params[:id] %>`).done( response => {
 
+      // debugger
+
       response.forEach(response => {
 
         var travellerElement = document.createElement('p');  
         travellerElement.textContent = response.user_email;
         travellerElement.classList.add('traveller-element');
-        travellerElement.style.margin = '2px 2px 2px 15px'
+        travellerElement.style.margin = '2px 2px 2px 25px';
+
+        // var travellerProfileImage = document.createElement('img');
+        // travellerProfileImage.src = response.image_url;
+        // travellerProfileImage.style.width = '50px';
+        // travellerProfileImage.style.borderRadius = '50%';
+        // .appendChild(travellerProfileImage)
         document.body.appendChild(travellerElement);
 
       });

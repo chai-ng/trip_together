@@ -37,7 +37,7 @@ class Api::TravellersController < ApplicationController
     end
 
     def delete
-        # when traveller leaves the tri
+        # when traveller leaves the trip
         Traveller.delete_by(id: params[:id])
     end
 end
