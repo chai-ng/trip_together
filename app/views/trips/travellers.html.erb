@@ -52,10 +52,11 @@
 
         var travellerElement = document.createElement('p');  
         travellerElement.textContent = response.user_email;
+        travellerElement.style.display = 'inline-block'
+        travellerElement.style.width = '85vw';
         travellerElement.classList.add('traveller-element');
-        travellerElement.style.margin = '2px 2px 2px 25px';
-        document.body.appendChild(travellerElement);
-        
+        travellerElement.style.margin = '5px 2px 5px 25px';
+
         // Delete Traveller Button:
         // var deleteButton = document.createElement('button')
         // deleteButton.classList.add('btn', 'btn-light', 'btn-sm')
@@ -64,11 +65,13 @@
         // travellerElement.append(deleteButton);
       
 
-        // var travellerProfileImage = document.createElement('img');
-        // travellerProfileImage.src = response.image_url;
-        // travellerProfileImage.style.width = '50px';
-        // travellerProfileImage.style.borderRadius = '50%';
-        // .appendChild(travellerProfileImage);  
+        var travellerProfileImage = document.createElement('img');
+        travellerProfileImage.src = response.image_url;
+        travellerProfileImage.style.width = '5vw';
+        travellerProfileImage.style.borderRadius = '50%';
+        travellerProfileImage.style.margin = '5px 0 5px 20px';
+        document.body.appendChild(travellerProfileImage);
+        document.body.appendChild(travellerElement);
       });
     })  
   }
