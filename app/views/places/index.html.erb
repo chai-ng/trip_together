@@ -17,7 +17,7 @@
 </ul>
 
 <div class="row places-list">
-  <div class="col-4 p-5 overflow-auto" style="max-height: 72vh">
+  <div class="col-4 pl-5 overflow-auto" style="max-height: 72vh">
     <form action="" class="search-form mb-4 w-100">
       <input class="form-control mr-4" type="text" placeholder="hit enter to search for places" aria-label="Search"
         name="searchstring" style="min-width: 70%">
@@ -154,7 +154,6 @@
           })
         } else {
         }
-
       })
 
       row.append(deleteButton)
@@ -167,6 +166,7 @@
   // existing places for this trip in the api
   $(document).ready(function () {
     $.ajax(`/api/places?trip_id=${this_trip_id}`).done(response => {
+      $('.vote-line').html('')
       response.forEach(createPlaceCard)
     })
   });

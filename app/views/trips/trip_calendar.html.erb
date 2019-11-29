@@ -17,7 +17,7 @@
 </ul>
 
 <div class="container-fluid mt-3">
-    <div class="section mt-3">
+    <div class="mt-3 table-responsive-xl">
         <table class="table table-bordered">
             <thead>
                 <tr class="date-header">
@@ -31,39 +31,78 @@
     </div>
 
     <div class="section">
-        <a href="https://calendar.google.com/calendar/r" class="btn btn-secondary">View in Google Calendar</a>
+        <a target="_blank" href="https://calendar.google.com/calendar/r" class="btn btn-secondary">View in Google Calendar</a>
     </div>
 </div>
 
 <script>
+    moment.tz.add("Australia/Melbourne|AEST AEDT|-a0 -b0|0101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101|-293lX xcX 10jd0 yL0 1cN0 1cL0 1fB0 19X0 17c10 LA0 1C00 Oo0 1zc0 Oo0 1zc0 Oo0 1zc0 Rc0 1zc0 Oo0 1zc0 Oo0 1zc0 Oo0 1zc0 Oo0 1zc0 Oo0 1zc0 Rc0 1zc0 Oo0 1zc0 Oo0 1zc0 Oo0 1zc0 U00 1qM0 WM0 1qM0 11A0 1tA0 U00 1tA0 U00 1tA0 Oo0 1zc0 Oo0 1zc0 Rc0 1zc0 Oo0 1zc0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 11A0 1o00 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 11A0 1o00 WM0 1qM0 14o0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1fA0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1fA0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1fA0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1fA0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1fA0 1cM0 1cM0 1cM0 1cM0|39e5")
     var this_trip_id = $('#trip_id')[0].value
-    // var createEventCard = function(event) {
-    //   eventCard = $('<div></div>').attr({class:"card"})
-    //   eventCard.html(`${event.summary}<br/>
-    //                   ${event.location}<br/>
-    //                   ${moment(event.start.dateTime).format("h:mm A")} - ${moment(event.end.dateTime).format("h:mm A")}<br/>
-    //                   <br/>`)
-    //   $('td').last().append(eventCard)
-    // }
+    var createEventCard = function(calEvent) {
+      eventCard = $('<div></div>').attr({class:"card bg-light mb-3"})
+      
+      eventDates = $('<div></div>').attr({class:"card-header"}).html(`${moment(calEvent.start.dateTime).format("h:mm A")} - ${moment(calEvent.end.dateTime).format("h:mm A")}`)
+      eventCard.append(eventDates)
+
+      cardBody = $('<div></div>').attr({class:"card-body"})
+        eventName = $('<h5></h5>').attr({class: "card-title"}).html(calEvent.summary)
+        cardBody.append(eventName)
+
+        eventLocation = $('<p></p>').attr({class: "card-text"}).html(calEvent.location)
+        cardBody.append(eventLocation)
+        
+        eventDescription = $('<p></p>').attr({class: "card-text"}).html(calEvent.description)
+        cardBody.append(eventDescription)
+      
+      eventCard.append(cardBody)
+
+      deleteButton = $('<button></button>').attr({class: 'btn btn-link text-right mb-3 mr-3'}).html('Delete event')
+      $(deleteButton).click((event) => {
+        if (confirm(`Are you sure you want to delete ${$(event.target).parent().children().find(".card-title")[0].innerHTML} from your trip?`)) {
+          $.ajax({
+            method: 'DELETE', 
+            url: `/api/calendar/${this_trip_id}/event/${calEvent.id}`,
+            async: false,
+            complete: function (response, status) {
+              if (status == 'success') {
+              } else {
+                alert('Error: the service responded with: ' + response.status + '\n' + response.responseText)
+              }
+            }
+          }).done(() => {
+            $(event.target).parent().hide()
+          })
+        } else {
+        }
+      })
+
+      eventCard.append(deleteButton)
+      $('td').last().append(eventCard)
+    }
 
     $.ajax(`/api/calendar/${this_trip_id}`).done( response => {
-        // find unique dates as col headers
-        dates = $.uniqueSort(response.items.map(item => new Date(item.start.dateTime).toDateString()))
-        dates.forEach( date => {
-            // create table header
-            var header = $('<th></th>').attr({scope: "col"}).html(date)
-            $('.date-header').append(header)
-            data = $('<td></td>').attr({class: 'event-space'})
-            $('.event-table').append(data)
-            // fetch events on the same day
-            var events = response.items.filter( item => new Date(item.start.dateTime).toDateString() == date)
-            events.forEach(event => {
-              eventCard = $('<div></div>').attr({class:"card"}).html(`${event.summary}<br/>
-                                                              ${event.location}<br/>
-                                                              ${moment(event.start.dateTime).format("h:mm A")} - ${moment(event.end.dateTime).format("h:mm A")}<br/>
-                                                              <br/>`)
-              $('td').last().append(eventCard)
-            })
-        })
+      // reset the scenes
+      $('date-header').html('')
+      $('event-table').html('')
+
+        // find list dates of dates as headers
+        // dates = $.uniqueSort(response.items.map(item => new Date(item.start.dateTime).toDateString()))
+        dates = $.uniqueSort(response.items.map(item => new Date(item.start.dateTime)))
+        startMoment = moment(dates[0])
+        endMoment = moment(dates.slice(-1)[0]).add(1, 'days')
+
+        // loop through each date
+        while (startMoment.isBefore(endMoment, 'day')) {
+          var header = $('<th></th>').attr({scope: "col", style: "min-width: 300px"}).html(startMoment.format('ddd D MMM YYYY'))
+          $('.date-header').append(header)
+
+          data = $('<td></td>').attr({class: 'event-space'})
+          $('.event-table').append(data)
+
+          var events = response.items.filter( item => moment.tz(item.start.dateTime, item.start.timeZone).isSame(startMoment, 'day'))
+          events.forEach(createEventCard);
+          startMoment.add(1, 'days');
+        }
     })
+
 </script>

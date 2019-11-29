@@ -13,6 +13,8 @@
 </div>
 
 <script>
+    $('.results').html('')
+
     $.ajax(`/api/trips`).done( response => {
       var counter = 0
       response.forEach(trip => {
