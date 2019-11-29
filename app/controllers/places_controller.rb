@@ -7,30 +7,6 @@ class PlacesController < ApplicationController
         
         @trip_header = "Are you rendering"
 
-        # @places = Place.all 
-
-        # <% @places.each do |place| %>
-        #     <h1><%= place.name %></h1>
-        # <%end%>
-
-        # @votes = Vote.type
-
-        # @count = 0
-        # if Vote.type == Vote.type["upvote"]
-        #     @count = @count + 1
-        # elsif Vote.type == Vote.type["downvote"]
-        #     @count = count - 1    
-        # end
-
-        
-        # def voting
-        #     if votes type == true
-        #         delete vote
-        #     else
-        #         allow user to vote
-        #     end
-        # end
-
     end
 
     def new
