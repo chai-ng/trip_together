@@ -1,4 +1,6 @@
 class Api::TravellersController < ApplicationController
+    include CalendarAccess
+    
     def index
         # return me all users associated with this trip
         connection = ActiveRecord::Base.connection.raw_connection
@@ -18,6 +20,19 @@ class Api::TravellersController < ApplicationController
         traveller.existing_user = User.where(email: params[:user_email]).count > 0
         traveller.accepted_invite = true
         traveller.save
+
+        # add traveller to trip calendar
+        calendar_id = Trip.find(params[:trip_id]).calendar_id
+        client = get_client()
+        new_rule = Google::Apis::CalendarV3::AclRule.new({
+            scope: {
+                type: 'user',
+                value: params[:user_email]
+            },
+            role: 'writer'
+        })
+        result = client.insert_acl(calendar_id, new_rule)
+
         render json: traveller
     end
 
