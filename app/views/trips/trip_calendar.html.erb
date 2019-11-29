@@ -31,20 +31,53 @@
     </div>
 
     <div class="section">
-        <a href="https://calendar.google.com/calendar/r" class="btn btn-secondary">View in Google Calendar</a>
+        <a target="_blank" href="https://calendar.google.com/calendar/r" class="btn btn-secondary">View in Google Calendar</a>
     </div>
 </div>
 
 <script>
     var this_trip_id = $('#trip_id')[0].value
-    // var createEventCard = function(event) {
-    //   eventCard = $('<div></div>').attr({class:"card"})
-    //   eventCard.html(`${event.summary}<br/>
-    //                   ${event.location}<br/>
-    //                   ${moment(event.start.dateTime).format("h:mm A")} - ${moment(event.end.dateTime).format("h:mm A")}<br/>
-    //                   <br/>`)
-    //   $('td').last().append(eventCard)
-    // }
+    var createEventCard = function(calEvent) {
+      eventCard = $('<div></div>').attr({class:"card bg-light mb-3"})
+      
+      eventDates = $('<div></div>').attr({class:"card-header"}).html(`${moment(calEvent.start.dateTime).format("h:mm A")} - ${moment(calEvent.end.dateTime).format("h:mm A")}`)
+      eventCard.append(eventDates)
+
+      cardBody = $('<div></div>').attr({class:"card-body"})
+        eventName = $('<h5></h5>').attr({class: "card-title"}).html(calEvent.summary)
+        cardBody.append(eventName)
+
+        eventLocation = $('<p></p>').attr({class: "card-text"}).html(calEvent.location)
+        cardBody.append(eventLocation)
+        
+        eventDescription = $('<p></p>').attr({class: "card-text"}).html(calEvent.description)
+        cardBody.append(eventDescription)
+      
+      eventCard.append(cardBody)
+
+      deleteButton = $('<button></button>').attr({class: 'btn btn-link text-right mb-3 mr-3'}).html('Delete event')
+      $(deleteButton).click((event) => {
+        if (confirm(`Are you sure you want to delete ${$(event.target).parent().children().find(".card-title")[0].innerHTML} from your trip?`)) {
+          $.ajax({
+            method: 'DELETE',
+            url: `/api/calendar/${this_trip_id}/event/${calEvent.id}`,
+            async: false,
+            complete: function (response, status) {
+              if (status == 'success') {
+              } else {
+                alert('Error: the service responded with: ' + response.status + '\n' + response.responseText)
+              }
+            }
+          }).done(() => {
+            $(event.target).parent().hide()
+          })
+        } else {
+        }
+      })
+
+      eventCard.append(deleteButton)
+      $('td').last().append(eventCard)
+    }
 
     $.ajax(`/api/calendar/${this_trip_id}`).done( response => {
         // find unique dates as col headers
@@ -55,15 +88,11 @@
             $('.date-header').append(header)
             data = $('<td></td>').attr({class: 'event-space'})
             $('.event-table').append(data)
+
             // fetch events on the same day
             var events = response.items.filter( item => new Date(item.start.dateTime).toDateString() == date)
-            events.forEach(event => {
-              eventCard = $('<div></div>').attr({class:"card"}).html(`${event.summary}<br/>
-                                                              ${event.location}<br/>
-                                                              ${moment(event.start.dateTime).format("h:mm A")} - ${moment(event.end.dateTime).format("h:mm A")}<br/>
-                                                              <br/>`)
-              $('td').last().append(eventCard)
-            })
+            events.forEach(createEventCard);
         })
     })
+
 </script>
