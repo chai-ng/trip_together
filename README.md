@@ -10,14 +10,14 @@ Trip Together is a collaborative, and democratic travel app helping you to plan 
 
 Currently in the market there's no platform where you can plan a small group trip and have a shared itinerary. TripTogether allows you conveniently log in with your google account, create a new trip, invite your friends, search for places of interest, and vote as a group on where you would like to go. You can then add those events to your google calendar for convenient access while you're on the go. 
 
-
-
 ## Technology used
 
   * Ruby 2.6.5
   * JavaScript
   * CSS, [Bootstrap](https://getbootstrap.com/)
   * AJAX, jQuery
+  * OAuth, Redis, OmniAuth
+  * Google API Client for Ruby
 
 ## User story
 
@@ -88,6 +88,10 @@ Some of the challenges we faced were:
   * OAuth
   * Places
   * Calendar
+
+* Whole lot of practice
+
+* Need to learn when to use APIs vs. not (e.g. creating a new trip where user is redirected and you need a page refresh), APIs with re-directs will break
 
 ## Unsolved problems and bonus features
 

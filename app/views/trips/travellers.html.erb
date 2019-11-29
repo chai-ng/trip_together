@@ -32,7 +32,7 @@
       <h4>Current Travellers:</h4>
       <ul class="list-group">
       </ul>
-      
+
 </div>
 
   
@@ -48,20 +48,19 @@
 
   function showTravellersByTripId() {
 
-    var allTravellerElements = document.querySelectorAll('.traveller-container');
-    allTravellerElements.forEach(element => element.remove());
+    // var allTravellerElements = document.querySelectorAll('.traveller-container');
+    // allTravellerElements.forEach(element => element.remove());
+    $('.list-group').html('')
 
     $.ajax(`/api/travellers?trip_id=<%= params[:id] %>`).done( response => {
-
-
       response.forEach(response => {
-
-        var travellerContainer = document.createElement('li');
-        travellerContainer.classList.add('list-group-item', 'p-3');
-
+        
         // var travellerContainer = document.createElement('div');
         // travellerContainer.classList.add('traveller-container', 'p-3');
         // travellerContainer.style.border = '0.5px solid rgba(0,0,255,0.2)';
+        
+        var travellerContainer = document.createElement('li');
+        travellerContainer.classList.add('list-group-item', 'p-3');
 
         var travellerElement = document.createElement('p');  
         travellerElement.textContent = response.user_email;
@@ -116,25 +115,34 @@
 
 <script>
   var addTravellerForm = document.querySelector('.add-traveller-form');
+
   function addNewTraveler(event) {
     event.preventDefault();
     // Add new traveller to table;
     var travellerEmailInput = document.querySelector('.traveller-email-input');
     $.ajax({
       url: '/api/travellers/create',
+      method: 'post',
       data: {
         user_email: travellerEmailInput.value,
         trip_id: <%= params[:id] %>
       },
-      method: 'post'
     }).done(response => {
-      // debugger
-      var newTraveler = document.createElement('h5');
-      newTraveler.textContent = response.user_email;
-      document.body.appendChild(newTraveler);
+      debugger
+      
+      var travellerContainer = document.createElement('li');
+        travellerContainer.classList.add('list-group-item', 'p-3');
+
+      var travellerElement = document.createElement('p');  
+      travellerElement.textContent = response.user_email;
+      travellerElement.style.width = '85vw';
+      travellerElement.style.display = 'inline-block';
+      travellerElement.style.margin = '5px 2px 5px 25px';
+
+      travellerContainer.append(travellerElement)
+      $('.list-group').append(travellerContainer)
     })  
   }
-
 
   addTravellerForm.addEventListener('submit', addNewTraveler)
 </script>
