@@ -53,7 +53,8 @@ class Api::CalendarController < ApplicationController
 
         result = client.insert_event(calendar_id, event)
         # redirect_to "#{result.html_link}"
-        redirect_to "/trips/#{params[:trip_id]}/calendar"
+        # redirect_to "/trips/#{params[:trip_id]}/calendar"
+        render json: result
     end
 
     def view_event
