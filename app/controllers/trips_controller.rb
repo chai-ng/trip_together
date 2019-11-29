@@ -74,6 +74,10 @@ class TripsController < ApplicationController
     end
 
     def event_new
+        # delete the place from the trip
+        Vote.delete_by(place_id: params[:place_id])
+        Place.delete_by(id: params[:place_id])
+
         # create event
         event = create_event(params)
         redirect_to "/trips/#{params[:id]}/calendar"

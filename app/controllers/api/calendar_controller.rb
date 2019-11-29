@@ -72,7 +72,6 @@ class Api::CalendarController < ApplicationController
 
     def delete_event
         client = get_client()
-        result = client.delete_event(calendar_id, params[:id])
-        render json: result
+        client.delete_event(calendar_id, params[:id])
     end
 end
