@@ -74,7 +74,8 @@ class TripsController < ApplicationController
     end
 
     def event_new
-        
+        # create event
+        event = create_event(params)
         redirect_to "/trips/#{params[:id]}/calendar"
     end
 end
