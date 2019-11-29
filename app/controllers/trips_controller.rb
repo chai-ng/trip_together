@@ -1,4 +1,6 @@
 class TripsController < ApplicationController
+    include CalendarAccess
+
     def index
     # List all resources in the database
     # GET /resource
@@ -10,8 +12,28 @@ class TripsController < ApplicationController
     end
 
     def create
-    # Creating a new resource in the database
-    # POST /resource
+        trip = Trip.new
+        trip.name = params[:trip_name]
+        trip.location = params[:location]
+        trip.start_date = DateTime.parse(params[:start_date])
+        trip.end_date = DateTime.parse(params[:end_date])
+        trip.user_id = current_user.id
+        trip.save
+
+        # Create traveller
+        traveller = Traveller.new
+        traveller.trip_id = trip.id
+        traveller.user_email = current_user.email
+        traveller.existing_user = true
+        traveller.accepted_invite = true
+        traveller.save
+
+        # Create calendar
+        calendar = create_calendar(trip.name)
+        trip.calendar_id = calendar.id
+        trip.save
+
+        redirect_to "/trips/#{trip.id}/travellers"
     end
 
     def show
@@ -49,5 +71,10 @@ class TripsController < ApplicationController
         @place = Place.find(params[:place_id])
         @trip = Trip.find(params[:id])
         render :new_event
+    end
+
+    def event_new
+        
+        redirect_to "/trips/#{params[:id]}/calendar"
     end
 end
