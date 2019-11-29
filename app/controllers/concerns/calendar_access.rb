@@ -13,9 +13,10 @@ module CalendarAccess
         client.insert_calendar(new_calendar)
     end
 
-    def create_event
+    def create_event(params)
         client = get_client()
-        calendar = client.get_calendar(self.calendar_id)
+        calendar_id = Trip.find(params[:id]).calendar_id
+        calendar = client.get_calendar(calendar_id)
 
         event = Google::Apis::CalendarV3::Event.new({
             summary: params[:summary],
