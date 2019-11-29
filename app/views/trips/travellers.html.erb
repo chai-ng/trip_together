@@ -43,35 +43,60 @@
 
   function showTravellersByTripId() {
 
-    var allTravellerElements = document.querySelectorAll('.traveller-element');
-    allTravellerElements.forEach(element => element.remove())
+    var allTravellerElements = document.querySelectorAll('.traveller-container');
+    allTravellerElements.forEach(element => element.remove());
 
     $.ajax(`/api/travellers?trip_id=<%= params[:id] %>`).done( response => {
 
       response.forEach(response => {
 
+        var travellerContainer = document.createElement('div');
+        travellerContainer.classList.add('traveller-container');
+        travellerContainer.style.border = '0.5px solid rgba(0,0,255,0.2)';
+
         var travellerElement = document.createElement('p');  
         travellerElement.textContent = response.user_email;
-        travellerElement.style.display = 'inline-block'
         travellerElement.style.width = '85vw';
-        travellerElement.classList.add('traveller-element');
+        travellerElement.style.display = 'inline-block';
         travellerElement.style.margin = '5px 2px 5px 25px';
 
-        // Delete Traveller Button:
-        // var deleteButton = document.createElement('button')
-        // deleteButton.classList.add('btn', 'btn-light', 'btn-sm')
-        // deleteButton.innerHTML = 'Delete'
-        // deleteButton.href = `/api/travellers/${response.user_email}`
-        // travellerElement.append(deleteButton);
+      //   var deleteButton = document.createElement('button')
+      //   deleteButton.classList.add('btn', 'btn-light', 'btn-sm')
+      //   deleteButton.innerHTML = 'Delete'
+      //   deleteButton.href = `/travellers/${this_trip_id}`
+
+      // $(deleteButton).click(() => {
+      //   if (confirm(`Are you sure you want to delete ${$(event.target).parentsUntil(".card").find(".card-title")[0].innerHTML} from your trip?`)) {
+      //     $.ajax({
+      //       method: 'DELETE',
+      //       url: `/api/places/${place.id}/delete`,
+      //       async: false,
+      //       complete: function (response, status) {
+      //         if (status == 'success') {
+      //         } else {
+      //           alert('Error: the service responded with: ' + response.status + '\n' + response.responseText)
+      //         }
+      //       }
+      //     }).done(() => {
+      //       $(event.target).parentsUntil(".card").parent().hide()
+      //     })
+      //   } else {
+      //   }
+
+      // })
+
       
 
         var travellerProfileImage = document.createElement('img');
         travellerProfileImage.src = response.image_url;
-        travellerProfileImage.style.width = '5vw';
+        travellerProfileImage.style.width = '4vw';
         travellerProfileImage.style.borderRadius = '50%';
         travellerProfileImage.style.margin = '5px 0 5px 20px';
-        document.body.appendChild(travellerProfileImage);
-        document.body.appendChild(travellerElement);
+
+        travellerContainer.appendChild(travellerProfileImage);
+        travellerContainer.appendChild(travellerElement);
+
+        document.body.appendChild(travellerContainer);
       });
     })  
   }
