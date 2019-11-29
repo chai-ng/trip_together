@@ -72,4 +72,9 @@ class TripsController < ApplicationController
         @trip = Trip.find(params[:id])
         render :new_event
     end
+
+    def event_new
+        
+        redirect_to "/trips/#{params[:id]}/calendar"
+    end
 end
